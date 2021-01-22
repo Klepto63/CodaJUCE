@@ -16,7 +16,9 @@
 - Faire ses modifs / son code
 - Pousser sa branche en locale puis sur le server :
 > git add .
+
 > git commit -m "commentaire concernant les modififications faites"
+
 > git push 
 - Note : pour le premier push, il faut utiliser la commande affichée sur le terminal. Ensuite git push suffit.
 
