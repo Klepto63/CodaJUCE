@@ -1,0 +1,4 @@
+C:\Users\alexa\Desktop\Juce_local\Coda\Builds\VisualStudio2019\x64\Debug\App\Coda.exe
+C:\Users\alexa\Desktop\Juce_local\Coda\Builds\VisualStudio2019\x64\Debug\App\Coda.pdb
+C:\Users\alexa\Desktop\Juce_local\CodaJUCE\Coda\Builds\VisualStudio2019\x64\Debug\App\Coda.exe
+C:\Users\alexa\Desktop\Juce_local\CodaJUCE\Coda\Builds\VisualStudio2019\x64\Debug\App\Coda.pdb
