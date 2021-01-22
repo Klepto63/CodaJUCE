@@ -236,7 +236,7 @@ myGui::myGui()
 	//[UserPreSize]
 	//[/UserPreSize]
 
-	setSize(1000, 500);
+	setSize(1300, 650);
 	//setResizeLimits(1600, 800, 800, 400);
 
 	//[Constructor] You can add your own custom stuff here..

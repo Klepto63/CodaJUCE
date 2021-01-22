@@ -9,6 +9,8 @@
 #include <JuceHeader.h>
 #include "MainComponent.h"
 #include "myGui.h"
+#include "OpenGLAppTutorial.h"
+
 //==============================================================================
 class CodaApplication  : public juce::JUCEApplication
 {
@@ -25,7 +27,8 @@ public:
     {
         // This method is where you should put your application's initialisation code..
 
-        mainWindow.reset (new MainWindow (getApplicationName()));
+        //mainWindow.reset (new MainWindow (getApplicationName()));
+        mainWindow.reset(new MainWindow("OpenGLAppTutorial", new MainContentComponent, *this));
     }
 
     void shutdown() override
@@ -58,19 +61,28 @@ public:
     class MainWindow    : public juce::DocumentWindow
     {
     public:
+        /*
         MainWindow (juce::String name)
             : DocumentWindow (name,
                               juce::Desktop::getInstance().getDefaultLookAndFeel()
                                                           .findColour (juce::ResizableWindow::backgroundColourId),
                               DocumentWindow::allButtons)
+    */
+            MainWindow(const juce::String& name, juce::Component* c, JUCEApplication& a)
+            : DocumentWindow(name, juce::Desktop::getInstance().getDefaultLookAndFeel()
+                .findColour(ResizableWindow::backgroundColourId),
+                juce::DocumentWindow::allButtons)//,
+               // app(a)
         {
             setUsingNativeTitleBar (false);
-            setContentOwned (new myGui(), true);
+            //setContentOwned (new myGui(), true);
+            setContentOwned(c, true);
 
            #if JUCE_IOS || JUCE_ANDROID
             setFullScreen (true);
            #else
-            setResizable (true, true);
+            setResizable (true, false);
+            setResizeLimits(800, 400, 1300, 650);
             centreWithSize (getWidth(), getHeight());
            #endif
 
