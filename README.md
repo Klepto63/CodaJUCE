@@ -4,10 +4,10 @@
 
 Studio Coda is a projet for music lover who wants to be fully immerged in their favorite songs.
 
-With Coda you can place instruments in a 3D space and move around them. The goad is to create a immersive experience and help listener to fully distinguish any instrument, just as if the concert was taking place in front of him. It's is for example a great tool to learn how to listen to classical music or understand complex music patterns.
+With Coda you can place instruments in a 3D space and move around them. The goad is to create a immersive experience and help listener to fully distinguish any instrument, just as if the concert was taking place in front of him. It's is for example a great tool to learn how to listen to classical music and understand complex music patterns.
 
 How does it work ? 
-Your head is tracked by our IOT device called 'Prequel'. You put the Prequel on your headphone and then you use our app 'Coda Music'. The Prequel will send you head position in Bluetooth to the app. Then we can compute the relative position of each source in real time. We use state of the art audio plugins to simulate the presence of the instruments juste as if it were in front of you.
+Your head is tracked by our IOT device called 'Prequel', placed on your prefered headphone. You then use our app 'Coda Music'. The Prequel will collect your head position and send it to the app in Bluetooth. We can now compute the relative position of each source in real time. We use state of the art audio plugins (Wave plugins) to simulate the presence of the instruments juste as if it were in front of you.
 
 
 Please check our website for more info and contact  www.studio-coda.fr (April 2021)
