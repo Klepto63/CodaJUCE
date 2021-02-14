@@ -22,6 +22,7 @@
 
   ==============================================================================
 */
+#include "juce_audio_utils/players/juce_AudioProcessorPlayer.h"
 
 namespace juce
 {

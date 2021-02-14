@@ -22,6 +22,9 @@
 
   ==============================================================================
 */
+#include "juce_audio_utils/audio_cd/juce_AudioCDReader.h"
+#include "juce_audio_utils/juce_audio_utils.h"
+//#include "JuceHeader.h"
 
 namespace juce
 {

@@ -36,14 +36,14 @@ myGui::myGui()
 {
 	//[Constructor_pre] You can add your own custom stuff here..
 	juce__textButton11.reset(new juce::TextButton("ButtonPresetB"));
-	addAndMakeVisible(juce__textButton11.get());
+	juce::Component::addAndMakeVisible(juce__textButton11.get());
 	juce__textButton11->setButtonText(TRANS("B"));
 	juce__textButton11->addListener(this);
 	juce__textButton11->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 	juce__textButton11->setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
 
 	juce__slider.reset(new juce::Slider("SliderAngle1"));
-	addAndMakeVisible(juce__slider.get());
+	juce::Component::addAndMakeVisible(juce__slider.get());
 	juce__slider->setRange(0, 360, 0.2);
 	juce__slider->setSliderStyle(juce::Slider::LinearHorizontal);
 	juce__slider->setTextBoxStyle(juce::Slider::TextBoxRight, false, 50, 20);
@@ -53,7 +53,7 @@ myGui::myGui()
 
 	juce__label.reset(new juce::Label("new label",
 		TRANS("Studio Coda Sandbox")));
-	addAndMakeVisible(juce__label.get());
+	juce::Component::addAndMakeVisible(juce__label.get());
 	juce__label->setFont(juce::Font("Calibri", 21.00f, juce::Font::plain).withTypefaceStyle("Regular").withExtraKerningFactor(0.057f));
 	juce__label->setJustificationType(juce::Justification::centredLeft);
 	juce__label->setEditable(false, false, false);
@@ -62,7 +62,7 @@ myGui::myGui()
 
 	juce__label2.reset(new juce::Label("new label",
 		TRANS("1.0.1")));
-	addAndMakeVisible(juce__label2.get());
+	juce::Component::addAndMakeVisible(juce__label2.get());
 	juce__label2->setFont(juce::Font("Calibri", 12.70f, juce::Font::plain).withTypefaceStyle("Regular").withExtraKerningFactor(0.048f));
 	juce__label2->setJustificationType(juce::Justification::centredLeft);
 	juce__label2->setEditable(false, false, false);
@@ -70,7 +70,7 @@ myGui::myGui()
 	juce__label2->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0x00000000));
 
 	juce__slider2.reset(new juce::Slider("SliderAngle2"));
-	addAndMakeVisible(juce__slider2.get());
+	juce::Component::addAndMakeVisible(juce__slider2.get());
 	juce__slider2->setRange(0, 360, 0.2);
 	juce__slider2->setSliderStyle(juce::Slider::LinearHorizontal);
 	juce__slider2->setTextBoxStyle(juce::Slider::TextBoxRight, false, 50, 20);
@@ -79,7 +79,7 @@ myGui::myGui()
 	juce__slider2->addListener(this);
 
 	juce__slider3.reset(new juce::Slider("SliderAngle3"));
-	addAndMakeVisible(juce__slider3.get());
+	juce::Component::addAndMakeVisible(juce__slider3.get());
 	juce__slider3->setRange(0, 360, 0.2);
 	juce__slider3->setSliderStyle(juce::Slider::LinearHorizontal);
 	juce__slider3->setTextBoxStyle(juce::Slider::TextBoxRight, false, 50, 20);
@@ -88,7 +88,7 @@ myGui::myGui()
 	juce__slider3->addListener(this);
 
 	juce__slider4.reset(new juce::Slider("SliderAngleFake1"));
-	addAndMakeVisible(juce__slider4.get());
+	juce::Component::addAndMakeVisible(juce__slider4.get());
 	juce__slider4->setRange(0, 360, 1);
 	juce__slider4->setValue(180);
 	juce__slider4->setSliderStyle(juce::Slider::LinearHorizontal);
@@ -97,7 +97,7 @@ myGui::myGui()
 	juce__slider4->addListener(this);
 
 	juce__slider5.reset(new juce::Slider("SliderAngleFake2"));
-	addAndMakeVisible(juce__slider5.get());
+	juce::Component::addAndMakeVisible(juce__slider5.get());
 	juce__slider5->setRange(00, 360, 1);
 	juce__slider5->setValue(180);
 	juce__slider5->setSliderStyle(juce::Slider::LinearHorizontal);
@@ -106,7 +106,7 @@ myGui::myGui()
 	juce__slider5->addListener(this);
 
 	juce__slider6.reset(new juce::Slider("SliderAngleFake3"));
-	addAndMakeVisible(juce__slider6.get());
+	juce::Component::addAndMakeVisible(juce__slider6.get());
 	juce__slider6->setRange(0, 360, 1);
 	juce__slider6->setValue(180);
 	juce__slider6->setSliderStyle(juce::Slider::LinearHorizontal);
@@ -115,23 +115,23 @@ myGui::myGui()
 	juce__slider6->addListener(this);
 
 	juce__toggleButton2.reset(new juce::ToggleButton("ButtonActivateFake"));
-	addAndMakeVisible(juce__toggleButton2.get());
+	juce::Component::addAndMakeVisible(juce__toggleButton2.get());
 	juce__toggleButton2->setButtonText(TRANS("En"));
 	juce__toggleButton2->addListener(this);
 	//juce__toggleButton2->setToggleState (true, dontSendNotification);
 
 	juce__textButton2.reset(new juce::TextButton("ButtonFakeAngleReset"));
-	addAndMakeVisible(juce__textButton2.get());
+	juce::Component::addAndMakeVisible(juce__textButton2.get());
 	juce__textButton2->setButtonText(TRANS("reset"));
 	juce__textButton2->addListener(this);
 	juce__textButton2->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 
 	juce__groupComponent.reset(new juce::GroupComponent("new group",
 		TRANS("Manual Angle")));
-	addAndMakeVisible(juce__groupComponent.get());
+	juce::Component::addAndMakeVisible(juce__groupComponent.get());
 
 	juce__textEditor.reset(new juce::TextEditor("TextConsole"));
-	addAndMakeVisible(juce__textEditor.get());
+	juce::Component::addAndMakeVisible(juce__textEditor.get());
 	juce__textEditor->setMultiLine(true);
 	juce__textEditor->setReturnKeyStartsNewLine(true);
 	juce__textEditor->setReadOnly(true);
@@ -143,7 +143,7 @@ myGui::myGui()
 	juce__textEditor->setText("sandbox V1.0.1");
 
 	juce__comboBox.reset(new juce::ComboBox("new combo box"));
-	addAndMakeVisible(juce__comboBox.get());
+	juce::Component::addAndMakeVisible(juce__comboBox.get());
 	juce__comboBox->setEditableText(false);
 	juce__comboBox->setJustificationType(juce::Justification::centredLeft);
 	juce__comboBox->setTextWhenNothingSelected(TRANS("Vivaldi - Winter"));
@@ -154,43 +154,43 @@ myGui::myGui()
 	juce__comboBox->addListener(this);
 
 	juce__textButton4.reset(new juce::TextButton("ButtonLoad"));
-	addAndMakeVisible(juce__textButton4.get());
+	juce::Component::addAndMakeVisible(juce__textButton4.get());
 	juce__textButton4->setButtonText(TRANS("LOAD SONG"));
 	juce__textButton4->addListener(this);
 	juce__textButton4->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 
 	juce__textButton5.reset(new juce::TextButton("ButtonPlay"));
-	addAndMakeVisible(juce__textButton5.get());
+	juce::Component::addAndMakeVisible(juce__textButton5.get());
 	juce__textButton5->setButtonText(TRANS("PLAY"));
 	juce__textButton5->addListener(this);
 	juce__textButton5->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff113900));
 
 	juce__textButton6.reset(new juce::TextButton("ButtonLoad"));
-	addAndMakeVisible(juce__textButton6.get());
+	juce::Component::addAndMakeVisible(juce__textButton6.get());
 	juce__textButton6->setButtonText(TRANS("STOP"));
 	juce__textButton6->addListener(this);
 	juce__textButton6->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 
 	juce__textButton7.reset(new juce::TextButton("ButtonCenter3D"));
-	addAndMakeVisible(juce__textButton7.get());
+	juce::Component::addAndMakeVisible(juce__textButton7.get());
 	juce__textButton7->setButtonText(TRANS("CENTER"));
 	juce__textButton7->addListener(this);
 	juce__textButton7->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 
 	juce__textButton8.reset(new juce::TextButton("ButtonFakeAngleSave"));
-	addAndMakeVisible(juce__textButton8.get());
+	juce::Component::addAndMakeVisible(juce__textButton8.get());
 	juce__textButton8->setButtonText(TRANS("save"));
 	juce__textButton8->addListener(this);
 	juce__textButton8->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 
 	juce__textButton9.reset(new juce::TextButton("ButtonPrequelConnect"));
-	addAndMakeVisible(juce__textButton9.get());
+	juce::Component::addAndMakeVisible(juce__textButton9.get());
 	juce__textButton9->setButtonText(TRANS("Connect"));
 	juce__textButton9->addListener(this);
 	juce__textButton9->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 
 	juce__slider8.reset(new juce::Slider("SliderVolume"));
-	addAndMakeVisible(juce__slider8.get());
+	juce::Component::addAndMakeVisible(juce__slider8.get());
 	juce__slider8->setRange(0, 100, 1);
 	juce__slider8->setValue(70);
 	juce__slider8->setSliderStyle(juce::Slider::LinearVertical);
@@ -199,34 +199,34 @@ myGui::myGui()
 	juce__slider8->addListener(this);
 
 	juce__textButton14.reset(new juce::TextButton("ButtonPresetA"));
-	addAndMakeVisible(juce__textButton14.get());
+	juce::Component::addAndMakeVisible(juce__textButton14.get());
 	juce__textButton14->setButtonText(TRANS("A"));
 	juce__textButton14->addListener(this);
 	juce__textButton14->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 	juce__textButton14->setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
 
 	juce__textButton13.reset(new juce::TextButton("ButtonPresetC"));
-	addAndMakeVisible(juce__textButton13.get());
+	juce::Component::addAndMakeVisible(juce__textButton13.get());
 	juce__textButton13->setButtonText(TRANS("C"));
 	juce__textButton13->addListener(this);
 	juce__textButton13->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 	juce__textButton13->setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
 
 	juce__textButton3.reset(new juce::TextButton("ButtonPrequelTest"));
-	addAndMakeVisible(juce__textButton3.get());
+	juce::Component::addAndMakeVisible(juce__textButton3.get());
 	juce__textButton3->setButtonText(TRANS("Test"));
 	juce__textButton3->addListener(this);
 	juce__textButton3->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 
 	juce__textButton10.reset(new juce::TextButton("ButtonPresetD"));
-	addAndMakeVisible(juce__textButton10.get());
+	juce::Component::addAndMakeVisible(juce__textButton10.get());
 	juce__textButton10->setButtonText(TRANS("D"));
 	juce__textButton10->addListener(this);
 	juce__textButton10->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 	juce__textButton10->setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
 
 	juce__textButton12.reset(new juce::TextButton("ButtonPresetE"));
-	addAndMakeVisible(juce__textButton12.get());
+	juce::Component::addAndMakeVisible(juce__textButton12.get());
 	juce__textButton12->setButtonText(TRANS("O"));
 	juce__textButton12->addListener(this);
 	juce__textButton12->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
@@ -236,7 +236,7 @@ myGui::myGui()
 	//[UserPreSize]
 	//[/UserPreSize]
 
-	setSize(1300, 650);
+	juce::Component::setSize(1300, 650);
 	//setResizeLimits(1600, 800, 800, 400);
 
 	//[Constructor] You can add your own custom stuff here..
@@ -295,7 +295,7 @@ void myGui::paint(juce::Graphics& g)
 	g.fillAll(juce::Colour(0xff152525));
 
 	{
-		int x = proportionOfWidth(0.0285f), y = proportionOfHeight(0.2641f), width = proportionOfWidth(0.2238f), height = proportionOfHeight(0.3671f);
+		int x = juce::Component::proportionOfWidth(0.0285f), y = juce::Component::proportionOfHeight(0.2641f), width = juce::Component::proportionOfWidth(0.2238f), height = juce::Component::proportionOfHeight(0.3671f);
 		juce::Colour fillColour = juce::Colours::black;
 		//[UserPaintCustomArguments] Customize the painting arguments here..
 		//[/UserPaintCustomArguments]
@@ -312,32 +312,32 @@ void myGui::resized()
 	//[UserPreResize] Add your own custom resize code here..
 	//[/UserPreResize]
 
-	juce__textButton11->setBounds(proportionOfWidth(0.3255f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
-	juce__slider->setBounds(proportionOfWidth(0.0244f), proportionOfHeight(0.1288f), proportionOfWidth(0.2197f), proportionOfHeight(0.0258f));
-	juce__label->setBounds(proportionOfWidth(0.0081f), proportionOfHeight(0.0129f), proportionOfWidth(0.2523f), proportionOfHeight(0.0387f));
-	juce__label2->setBounds(proportionOfWidth(0.0163f), proportionOfHeight(0.0515f), proportionOfWidth(0.0570f), 24);
-	juce__slider2->setBounds(proportionOfWidth(0.0244f), proportionOfHeight(0.1675f), proportionOfWidth(0.2197f), proportionOfHeight(0.0258f));
-	juce__slider3->setBounds(proportionOfWidth(0.0244f), proportionOfHeight(0.2061f), proportionOfWidth(0.2197f), proportionOfHeight(0.0258f));
-	juce__slider4->setBounds(proportionOfWidth(0.0325f), proportionOfHeight(0.7472f), proportionOfWidth(0.2035f), proportionOfHeight(0.0258f));
-	juce__slider5->setBounds(proportionOfWidth(0.0325f), proportionOfHeight(0.7858f), proportionOfWidth(0.2035f), proportionOfHeight(0.0258f));
-	juce__slider6->setBounds(proportionOfWidth(0.0325f), proportionOfHeight(0.8245f), proportionOfWidth(0.2035f), proportionOfHeight(0.0258f));
-	juce__toggleButton2->setBounds(proportionOfWidth(0.0407f), proportionOfHeight(0.8889f), proportionOfWidth(0.0488f), proportionOfHeight(0.0258f));
-	juce__textButton2->setBounds(proportionOfWidth(0.0977f), proportionOfHeight(0.8889f), proportionOfWidth(0.0651f), proportionOfHeight(0.0258f));
-	juce__groupComponent->setBounds(proportionOfWidth(0.0244f), proportionOfHeight(0.7085f), proportionOfWidth(0.2279f), proportionOfHeight(0.2319f));
-	juce__textEditor->setBounds(proportionOfWidth(0.8383f), proportionOfHeight(0.0000f), proportionOfWidth(0.1628f), proportionOfHeight(1.0048f));
-	juce__comboBox->setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.7858f), proportionOfWidth(0.2686f), proportionOfHeight(0.0515f));
-	juce__textButton4->setBounds(proportionOfWidth(0.5534f), proportionOfHeight(0.7858f), proportionOfWidth(0.2116f), proportionOfHeight(0.0515f));
-	juce__textButton5->setBounds(proportionOfWidth(0.6673f), proportionOfHeight(0.8631f), proportionOfWidth(0.0977f), proportionOfHeight(0.0773f));
-	juce__textButton6->setBounds(proportionOfWidth(0.5534f), proportionOfHeight(0.8631f), proportionOfWidth(0.0977f), proportionOfHeight(0.0773f));
-	juce__textButton7->setBounds(proportionOfWidth(0.1790f), proportionOfHeight(0.6441f), proportionOfWidth(0.0651f), proportionOfHeight(0.0258f));
-	juce__textButton8->setBounds(proportionOfWidth(0.1709f), proportionOfHeight(0.8889f), proportionOfWidth(0.0651f), proportionOfHeight(0.0258f));
-	juce__textButton9->setBounds(proportionOfWidth(0.0325f), proportionOfHeight(0.6441f), proportionOfWidth(0.0814f), proportionOfHeight(0.0258f));
-	juce__slider8->setBounds(proportionOfWidth(0.7813f), proportionOfHeight(0.6828f), proportionOfWidth(0.0488f), proportionOfHeight(0.2705f));
-	juce__textButton14->setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
-	juce__textButton13->setBounds(proportionOfWidth(0.3825f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
-	juce__textButton3->setBounds(proportionOfWidth(0.1221f), proportionOfHeight(0.6441f), proportionOfWidth(0.0488f), proportionOfHeight(0.0258f));
-	juce__textButton10->setBounds(proportionOfWidth(0.4395f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
-	juce__textButton12->setBounds(proportionOfWidth(0.4964f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
+	juce__textButton11->setBounds(juce::Component::proportionOfWidth(0.3255f), juce::Component::proportionOfHeight(0.8631f), juce::Component::proportionOfWidth(0.0407f), juce::Component::proportionOfHeight(0.0773f));
+	juce__slider->setBounds(juce::Component::proportionOfWidth(0.0244f), juce::Component::proportionOfHeight(0.1288f), juce::Component::proportionOfWidth(0.2197f), juce::Component::proportionOfHeight(0.0258f));
+	juce__label->setBounds(juce::Component::proportionOfWidth(0.0081f), juce::Component::proportionOfHeight(0.0129f), juce::Component::proportionOfWidth(0.2523f), juce::Component::proportionOfHeight(0.0387f));
+	juce__label2->setBounds(juce::Component::proportionOfWidth(0.0163f), juce::Component::proportionOfHeight(0.0515f), juce::Component::proportionOfWidth(0.0570f), 24);
+	juce__slider2->setBounds(juce::Component::proportionOfWidth(0.0244f), juce::Component::proportionOfHeight(0.1675f), juce::Component::proportionOfWidth(0.2197f), juce::Component::proportionOfHeight(0.0258f));
+	juce__slider3->setBounds(juce::Component::proportionOfWidth(0.0244f), juce::Component::proportionOfHeight(0.2061f), juce::Component::proportionOfWidth(0.2197f), juce::Component::proportionOfHeight(0.0258f));
+	juce__slider4->setBounds(juce::Component::proportionOfWidth(0.0325f), juce::Component::proportionOfHeight(0.7472f), juce::Component::proportionOfWidth(0.2035f), juce::Component::proportionOfHeight(0.0258f));
+	juce__slider5->setBounds(juce::Component::proportionOfWidth(0.0325f), juce::Component::proportionOfHeight(0.7858f), juce::Component::proportionOfWidth(0.2035f), juce::Component::proportionOfHeight(0.0258f));
+	juce__slider6->setBounds(juce::Component::proportionOfWidth(0.0325f), juce::Component::proportionOfHeight(0.8245f), juce::Component::proportionOfWidth(0.2035f), juce::Component::proportionOfHeight(0.0258f));
+	juce__toggleButton2->setBounds(juce::Component::proportionOfWidth(0.0407f), juce::Component::proportionOfHeight(0.8889f), juce::Component::proportionOfWidth(0.0488f), juce::Component::proportionOfHeight(0.0258f));
+	juce__textButton2->setBounds(juce::Component::proportionOfWidth(0.0977f), juce::Component::proportionOfHeight(0.8889f), juce::Component::proportionOfWidth(0.0651f), juce::Component::proportionOfHeight(0.0258f));
+	juce__groupComponent->setBounds(juce::Component::proportionOfWidth(0.0244f), juce::Component::proportionOfHeight(0.7085f), juce::Component::proportionOfWidth(0.2279f), juce::Component::proportionOfHeight(0.2319f));
+	juce__textEditor->setBounds(juce::Component::proportionOfWidth(0.8383f), juce::Component::proportionOfHeight(0.0000f), juce::Component::proportionOfWidth(0.1628f), juce::Component::proportionOfHeight(1.0048f));
+	juce__comboBox->setBounds(juce::Component::proportionOfWidth(0.2686f), juce::Component::proportionOfHeight(0.7858f), juce::Component::proportionOfWidth(0.2686f), juce::Component::proportionOfHeight(0.0515f));
+	juce__textButton4->setBounds(juce::Component::proportionOfWidth(0.5534f), juce::Component::proportionOfHeight(0.7858f), juce::Component::proportionOfWidth(0.2116f), juce::Component::proportionOfHeight(0.0515f));
+	juce__textButton5->setBounds(juce::Component::proportionOfWidth(0.6673f), juce::Component::proportionOfHeight(0.8631f), juce::Component::proportionOfWidth(0.0977f), juce::Component::proportionOfHeight(0.0773f));
+	juce__textButton6->setBounds(juce::Component::proportionOfWidth(0.5534f), juce::Component::proportionOfHeight(0.8631f), juce::Component::proportionOfWidth(0.0977f), juce::Component::proportionOfHeight(0.0773f));
+	juce__textButton7->setBounds(juce::Component::proportionOfWidth(0.1790f), juce::Component::proportionOfHeight(0.6441f), juce::Component::proportionOfWidth(0.0651f), juce::Component::proportionOfHeight(0.0258f));
+	juce__textButton8->setBounds(juce::Component::proportionOfWidth(0.1709f), juce::Component::proportionOfHeight(0.8889f), juce::Component::proportionOfWidth(0.0651f), juce::Component::proportionOfHeight(0.0258f));
+	juce__textButton9->setBounds(juce::Component::proportionOfWidth(0.0325f), juce::Component::proportionOfHeight(0.6441f), juce::Component::proportionOfWidth(0.0814f), juce::Component::proportionOfHeight(0.0258f));
+	juce__slider8->setBounds(juce::Component::proportionOfWidth(0.7813f), juce::Component::proportionOfHeight(0.6828f), juce::Component::proportionOfWidth(0.0488f), juce::Component::proportionOfHeight(0.2705f));
+	juce__textButton14->setBounds(juce::Component::proportionOfWidth(0.2686f), juce::Component::proportionOfHeight(0.8631f), juce::Component::proportionOfWidth(0.0407f), juce::Component::proportionOfHeight(0.0773f));
+	juce__textButton13->setBounds(juce::Component::proportionOfWidth(0.3825f), juce::Component::proportionOfHeight(0.8631f), juce::Component::proportionOfWidth(0.0407f), juce::Component::proportionOfHeight(0.0773f));
+	juce__textButton3->setBounds(juce::Component::proportionOfWidth(0.1221f), juce::Component::proportionOfHeight(0.6441f), juce::Component::proportionOfWidth(0.0488f), juce::Component::proportionOfHeight(0.0258f));
+	juce__textButton10->setBounds(juce::Component::proportionOfWidth(0.4395f), juce::Component::proportionOfHeight(0.8631f), juce::Component::proportionOfWidth(0.0407f), juce::Component::proportionOfHeight(0.0773f));
+	juce__textButton12->setBounds(juce::Component::proportionOfWidth(0.4964f), juce::Component::proportionOfHeight(0.8631f), juce::Component::proportionOfWidth(0.0407f), juce::Component::proportionOfHeight(0.0773f));
 	//[UserResized] Add your own custom resize handling here..
 	//[/UserResized]
 }

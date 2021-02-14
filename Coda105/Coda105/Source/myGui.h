@@ -36,7 +36,9 @@
 class myGui : public juce::Component,
     public juce::Button::Listener,
     public juce::Slider::Listener,
-    public juce::ComboBox::Listener
+    public juce::ComboBox::Listener,
+    //public juce::AudioAppComponent,
+    //public juce::ChangeListener
 {
 public:
     //==============================================================================
