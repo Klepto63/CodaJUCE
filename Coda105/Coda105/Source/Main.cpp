@@ -9,7 +9,6 @@
 #include <JuceHeader.h>
 #include "MainComponent.h"
 #include "myGui.h"
-
 //==============================================================================
 class Coda105Application  : public juce::JUCEApplication
 {
@@ -67,6 +66,7 @@ public:
         {
             setUsingNativeTitleBar (true);
             setContentOwned (new myGui(), true);
+
 
            #if JUCE_IOS || JUCE_ANDROID
             setFullScreen (true);

@@ -21,6 +21,8 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include <JuceHeader.h>
+#include "myOpenGL.h"
+#include "myOpenGL2D.h"
 //[/Headers]
 
 
@@ -61,7 +63,8 @@ private:
     double FakeAngle1Recall = 180;
     double FakeAngle2Recall = 180;
     double FakeAngle3Recall = 180;
-    //[/UserVariables]
+    myopenGLComponent    myOpenGL;
+    myopenGLComponent2D  myOpenGL2D;
 
     //==============================================================================
     std::unique_ptr<juce::TextButton> juce__textButton11;
@@ -92,10 +95,6 @@ private:
     std::unique_ptr<juce::TextButton> juce__textButton12;
 
 
-    //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(myGui)
 };
-
-//[EndFile] You can add extra defines here...
-//[/EndFile]
 

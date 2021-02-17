@@ -21,6 +21,7 @@
 //[/Headers]
 
 #include "myGui.h"
+#include "myOpenGL.h"
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
 enum TransportState {
@@ -232,14 +233,18 @@ myGui::myGui()
 	juce__textButton12->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 	juce__textButton12->setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
 
+	addAndMakeVisible(myOpenGL);
 
-	//[UserPreSize]
-	//[/UserPreSize]
+
+	addAndMakeVisible(myOpenGL2D);
+
 
 	setSize(1300, 650);
 	//setResizeLimits(1600, 800, 800, 400);
 
 	//[Constructor] You can add your own custom stuff here..
+
+	//setContentOwned(new MainOpenGLContentComponent(), true);
 	//[/Constructor]
 }
 
@@ -253,7 +258,6 @@ myGui::~myGui()
 {
 	//[Destructor_pre]. You can add your own custom destruction code here..
 	//[/Destructor_pre]
-
 	juce__textButton11 = nullptr;
 	juce__slider = nullptr;
 	juce__label = nullptr;
@@ -338,8 +342,10 @@ void myGui::resized()
 	juce__textButton3->setBounds(proportionOfWidth(0.1221f), proportionOfHeight(0.6441f), proportionOfWidth(0.0488f), proportionOfHeight(0.0258f));
 	juce__textButton10->setBounds(proportionOfWidth(0.4395f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
 	juce__textButton12->setBounds(proportionOfWidth(0.4964f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
-	//[UserResized] Add your own custom resize handling here..
-	//[/UserResized]
+
+	myOpenGL.setBounds(proportionOfWidth(0.02848f), proportionOfHeight(0.26409f), proportionOfWidth(0.2238f), proportionOfHeight(0.36715f));
+
+	myOpenGL2D.setBounds(proportionOfWidth(0.2848f), proportionOfHeight(0.04f), proportionOfWidth(0.50f), proportionOfHeight(0.65f));
 }
 
 void myGui::buttonClicked(juce::Button* buttonThatWasClicked)
@@ -361,16 +367,18 @@ void myGui::buttonClicked(juce::Button* buttonThatWasClicked)
 			juce__slider->setValue(juce__slider4->getValue());
 			juce__slider2->setValue(juce__slider5->getValue());
 			juce__slider3->setValue(juce__slider6->getValue());
+			myOpenGL.set_CodaIsConnected(true);
 		}
 		else
 		{//off
 			juce__slider->setValue(0);
 			juce__slider2->setValue(0);
 			juce__slider3->setValue(0);
+			myOpenGL.set_CodaIsConnected(false);
 		}
 		//[/UserButtonCode_juce__toggleButton2]
 	}
-	else if (buttonThatWasClicked == juce__textButton2.get())								//Reset fake
+	else if (buttonThatWasClicked == juce__textButton2.get())								//Reset les fake values
 	{
 		//[UserButtonCode_juce__textButton2] -- add your button handler code here..
 		juce__slider4->setValue(myGui::FakeAngle1Recall);
@@ -414,9 +422,6 @@ void myGui::buttonClicked(juce::Button* buttonThatWasClicked)
 	{
 		//[UserButtonCode_juce__textButton9] -- add your button handler code here..
 		LOG("prequel connect");
-
-
-
 		//[/UserButtonCode_juce__textButton9]
 	}
 	else if (buttonThatWasClicked == juce__textButton14.get())
