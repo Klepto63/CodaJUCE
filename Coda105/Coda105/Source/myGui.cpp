@@ -234,10 +234,7 @@ myGui::myGui()
 	juce__textButton12->setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
 
 	addAndMakeVisible(myOpenGL);
-
-
 	addAndMakeVisible(myOpenGL2D);
-
 
 	setSize(1300, 650);
 	//setResizeLimits(1600, 800, 800, 400);
