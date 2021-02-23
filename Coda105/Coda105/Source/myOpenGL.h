@@ -484,7 +484,7 @@ public:
 #if JUCE_OPENGL_ES
             R"(    lowp vec4 colour = vec4(0.95, 0.57, 0.03, 0.7);)"
 #else
-            R"(    vec4 colour = vec4(0.95, 0.95, 0.95, 0.5);)" //face color
+            R"(    vec4 colour = vec4(0.25, 0.65, 0.95, 0.7);)" //face color
 #endif
             R"(    gl_FragColor = colour;
                })";

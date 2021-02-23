@@ -337,12 +337,6 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavefrontObjFile2D)
 };
 
-
-
-
-
-
-
 class myopenGLComponent2D : public juce::OpenGLAppComponent
 {
 public:
@@ -352,7 +346,6 @@ public:
     myopenGLComponent2D()
     {
         setSize(800, 600);
-        CodaIsConnected = false;
     }
 
     ~myopenGLComponent2D() override
@@ -375,38 +368,30 @@ public:
 
     juce::Matrix3D<float> getProjectionMatrix() const
     {
-        auto w = 0.07f / (0.25f + 0.1f);                                       // [1]
+        auto w = 0.8f / (0.25f + 0.1f);                                        // [1]
         auto h = w * getLocalBounds().toFloat().getAspectRatio(false);         // [2]
 
         return juce::Matrix3D<float>::fromFrustum(-w, w, -h, h, 4.0f, 30.0f);  // [3]
     }
 
-
     juce::Matrix3D<float> getViewMatrix() const
     {
-        juce::Matrix3D<float> viewMatrix({ 0.0f, 0.0f, -10.0f });
+        juce::Matrix3D<float> viewMatrix({ 0.0f, 
+                                          -2.0f, 
+                                         -10.0f});
+
         juce::Matrix3D<float> rotationMatrix;
+        juce::Matrix3D<float> rotationMatrix2;
 
-        if (!CodaIsConnected)
-        {
-            rotationMatrix = viewMatrix.rotation({ -0.0f,
-                                                    5.0f * std::sin((float)getFrameCounter() * 0.01f),
-                                                    0.0f });
-        }
-        else
-        {
-            rotationMatrix = viewMatrix.rotation({ -0.0f,
-                                                    5.0f,
-                                                    0.0f });
-        }
+        rotationMatrix = viewMatrix.rotation({   -3.1415f * 0.5,
+                                                0 ,
+                                                0 });
 
+        rotationMatrix2 = viewMatrix.rotation({ 0,
+                                                 5.0f * std::sin((float)getFrameCounter() * 0.01f) ,
+                                                0 });
 
-        return rotationMatrix * viewMatrix;
-    }
-
-    void set_CodaIsConnected(bool b)
-    {
-        CodaIsConnected = b;
+        return (rotationMatrix2 * rotationMatrix * viewMatrix);
     }
 
     void render() override
@@ -439,13 +424,20 @@ public:
         openGLContext.extensions.glBindBuffer(juce::GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
-    void paint(juce::Graphics& g) override
+    void drawcircle(juce::Graphics& g, float x, float y, float rad)
     {
-        //g.setColour(getLookAndFeel().findColour(juce::Label::textColourId));
-        //g.setFont(15);
-        //g.drawText("Not connected", 25, 20, 300, 30, juce::Justification::left);
+        g.setColour(juce::Colours::white);
+        auto w = getLocalBounds().toFloat().getWidth();
+        auto h = getLocalBounds().toFloat().getHeight();
+        g.fillEllipse((w * x) - (rad * 0.5f), (h * y) - (rad*0.5f), rad, 0.7f*rad);
     }
 
+    void paint(juce::Graphics& g) override
+    {
+        drawcircle(g, 0.5, 0.5, 50);
+        drawcircle(g, 0.7, 0.5, 50);
+
+    }
     void resized() override
     {
     }
@@ -484,7 +476,7 @@ public:
 #if JUCE_OPENGL_ES
             R"(    lowp vec4 colour = vec4(0.95, 0.57, 0.03, 0.7);)"
 #else
-            R"(    vec4 colour = vec4(0.95, 0.95, 0.95, 0.5);)" //face color
+            R"(    vec4 colour = vec4(1, 1, 1, 0.5);)" //face color
 #endif
             R"(    gl_FragColor = colour;
                })";
@@ -635,7 +627,7 @@ private:
             while (!dir.getChildFile("Resources").exists() && numTries++ < 15)
                 dir = dir.getParentDirectory();
 
-            if (shapeFile.load(dir.getChildFile("Resources").getChildFile("face.obj")).wasOk())
+            if (shapeFile.load(dir.getChildFile("Resources").getChildFile("lucky.obj")).wasOk())
                 for (auto* s : shapeFile.shapes)
                     vertexBuffers.add(new VertexBuffer(context, *s));
         }
@@ -723,8 +715,6 @@ private:
     };
 
 
-
-    bool CodaIsConnected;
 
 
     juce::String vertexShader;
