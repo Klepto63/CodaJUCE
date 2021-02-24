@@ -368,7 +368,7 @@ public:
 
     juce::Matrix3D<float> getProjectionMatrix() const
     {
-        auto w = 0.8f / (0.25f + 0.1f);                                        // [1]
+        auto w = 0.6f / (0.25f + 0.1f);                                        // [1]
         auto h = w * getLocalBounds().toFloat().getAspectRatio(false);         // [2]
 
         return juce::Matrix3D<float>::fromFrustum(-w, w, -h, h, 4.0f, 30.0f);  // [3]
@@ -388,7 +388,7 @@ public:
                                                 0 });
 
         rotationMatrix2 = viewMatrix.rotation({ 0,
-                                                 5.0f * std::sin((float)getFrameCounter() * 0.01f) ,
+                                                2.0f * std::sin((float)getFrameCounter() * 0.01f) ,
                                                 0 });
 
         return (rotationMatrix2 * rotationMatrix * viewMatrix);
@@ -424,22 +424,39 @@ public:
         openGLContext.extensions.glBindBuffer(juce::GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
-    void drawcircle(juce::Graphics& g, float x, float y, float rad)
+
+    void drawCirclePolar(juce::Graphics& g, float dist, float angle, float rad, juce::Colour color)
+    {
+        //Point repère : drawcircle(g, 0.5, 0.85, 40, juce::Colours::white);
+        float x = 0.5  + dist*(std::cos(angle*2*3.1415/360));
+        float y = (angle / 360);
+        //float y = 0.95 - dist * (std::sin(angle * 2 * 3.1415 / 360));
+        drawcircle(g, x, y, rad, color);
+    }
+
+    void drawcircle(juce::Graphics& g, float x, float y, float rad, juce::Colour color)
     {
         g.setColour(juce::Colours::white);
         auto w = getLocalBounds().toFloat().getWidth();
         auto h = getLocalBounds().toFloat().getHeight();
-        g.fillEllipse((w * x) - (rad * 0.5f), (h * y) - (rad*0.5f), rad, 0.7f*rad);
+        g.fillEllipse((w * x) - (rad * 0.5f), (h * y) - (rad*0.5f), rad, rad);
+        float tempRad = 0.85f * rad;
+        g.setColour(color);
+        g.fillEllipse((w * x) - (tempRad * 0.5f), (h * y) - (tempRad * 0.5f), tempRad,  tempRad);
     }
 
     void paint(juce::Graphics& g) override
     {
-        drawcircle(g, 0.5, 0.5, 50);
-        drawcircle(g, 0.7, 0.5, 50);
-
+        drawCirclePolar(g,
+                        0.3, 
+                        (float)getFrameCounter(),
+                        40,
+                        juce::Colours::red);
     }
+
     void resized() override
     {
+
     }
 
     void createShaders()
