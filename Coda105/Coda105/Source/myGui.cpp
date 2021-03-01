@@ -1,38 +1,13 @@
-/*
-  ==============================================================================
-
-  This is an automatically generated GUI class created by the Projucer!
-
-  Be careful when adding custom code to these files, as only the code within
-  the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
-  and re-saved.
-
-  Created with Projucer version: 6.0.5
-
-  ------------------------------------------------------------------------------
-
-  The Projucer is part of the JUCE library.
-  Copyright (c) 2020 - Raw Material Software Limited.
-
-  ==============================================================================
-*/
-
-//[Headers] You can add your own extra header files here...
-//[/Headers]
-
 #include "myGui.h"
 #include "myOpenGL.h"
 
-//[MiscUserDefs] You can add your own user definitions and misc code here...
 enum TransportState {
 	Stopped,
 	Starting,
 	Playing,
 	Stopping
 };
-//[/MiscUserDefs]
 
-//==============================================================================
 myGui::myGui()
 {
 	//[Constructor_pre] You can add your own custom stuff here..
@@ -52,8 +27,7 @@ myGui::myGui()
 	juce__slider->setColour(juce::Slider::textBoxTextColourId, juce::Colours::aqua);
 	juce__slider->addListener(this);
 
-	juce__label.reset(new juce::Label("new label",
-		TRANS("Studio Coda Sandbox")));
+	juce__label.reset(new juce::Label("new label",TRANS("Studio Coda Sandbox")));
 	addAndMakeVisible(juce__label.get());
 	juce__label->setFont(juce::Font("Calibri", 21.00f, juce::Font::plain).withTypefaceStyle("Regular").withExtraKerningFactor(0.057f));
 	juce__label->setJustificationType(juce::Justification::centredLeft);
@@ -61,8 +35,7 @@ myGui::myGui()
 	juce__label->setColour(juce::TextEditor::textColourId, juce::Colours::black);
 	juce__label->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0x00000000));
 
-	juce__label2.reset(new juce::Label("new label",
-		TRANS("1.0.1")));
+	juce__label2.reset(new juce::Label("new label",TRANS("1.0.1")));
 	addAndMakeVisible(juce__label2.get());
 	juce__label2->setFont(juce::Font("Calibri", 12.70f, juce::Font::plain).withTypefaceStyle("Regular").withExtraKerningFactor(0.048f));
 	juce__label2->setJustificationType(juce::Justification::centredLeft);
@@ -119,7 +92,6 @@ myGui::myGui()
 	addAndMakeVisible(juce__toggleButton2.get());
 	juce__toggleButton2->setButtonText(TRANS("En"));
 	juce__toggleButton2->addListener(this);
-	//juce__toggleButton2->setToggleState (true, dontSendNotification);
 
 	juce__textButton2.reset(new juce::TextButton("ButtonFakeAngleReset"));
 	addAndMakeVisible(juce__textButton2.get());
@@ -127,8 +99,7 @@ myGui::myGui()
 	juce__textButton2->addListener(this);
 	juce__textButton2->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 
-	juce__groupComponent.reset(new juce::GroupComponent("new group",
-		TRANS("Manual Angle")));
+	juce__groupComponent.reset(new juce::GroupComponent("new group",TRANS("Manual Angle")));
 	addAndMakeVisible(juce__groupComponent.get());
 
 	juce__textEditor.reset(new juce::TextEditor("TextConsole"));
@@ -234,19 +205,13 @@ myGui::myGui()
 	juce__textButton12->setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
 
 	addAndMakeVisible(myOpenGL);
-	addAndMakeVisible(myOpenGL);
-
 	//addAndMakeVisible(myOpenGL2D);
-
 	addAndMakeVisible(myAnimatedPaint);
 
-	setSize(1300, 650);//myAnimatedPaint est calé sur ca en hardcode
+	setSize(1300, 650);
 	//setResizeLimits(1600, 800, 800, 400);
-
 	//[Constructor] You can add your own custom stuff here..
-
 	//setContentOwned(new MainOpenGLContentComponent(), true);
-	//[/Constructor]
 }
 
 
@@ -257,8 +222,6 @@ void myGui::LOG(juce::String s)
 
 myGui::~myGui()
 {
-	//[Destructor_pre]. You can add your own custom destruction code here..
-	//[/Destructor_pre]
 	juce__textButton11 = nullptr;
 	juce__slider = nullptr;
 	juce__label = nullptr;
@@ -285,20 +248,12 @@ myGui::~myGui()
 	juce__textButton3 = nullptr;
 	juce__textButton10 = nullptr;
 	juce__textButton12 = nullptr;
-
-
-	//[Destructor]. You can add your own custom destruction code here..
-	//[/Destructor]
 }
 
 //==============================================================================
 void myGui::paint(juce::Graphics& g)
 {
-	//[UserPrePaint] Add your own custom painting code here..
-	//[/UserPrePaint]
-
 	g.fillAll(juce::Colour(0xff152525));
-
 	{
 		int x = proportionOfWidth(0.0285f), y = proportionOfHeight(0.2641f), width = proportionOfWidth(0.2238f), height = proportionOfHeight(0.3671f);
 		juce::Colour fillColour = juce::Colours::black;
@@ -307,16 +262,10 @@ void myGui::paint(juce::Graphics& g)
 		g.setColour(fillColour);
 		g.fillRect(x, y, width, height);
 	}
-
-	//[UserPaint] Add your own custom painting code here..
-	//[/UserPaint]
 }
 
 void myGui::resized()
 {
-	//[UserPreResize] Add your own custom resize code here..
-	//[/UserPreResize]
-
 	juce__textButton11->setBounds(proportionOfWidth(0.3255f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
 	juce__slider->setBounds(proportionOfWidth(0.0244f), proportionOfHeight(0.1288f), proportionOfWidth(0.2197f), proportionOfHeight(0.0258f));
 	juce__label->setBounds(proportionOfWidth(0.0081f), proportionOfHeight(0.0129f), proportionOfWidth(0.2523f), proportionOfHeight(0.0387f));
@@ -345,10 +294,8 @@ void myGui::resized()
 	juce__textButton12->setBounds(proportionOfWidth(0.4964f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
 
 	myOpenGL.setBounds(proportionOfWidth(0.02848f), proportionOfHeight(0.26409f), proportionOfWidth(0.2238f), proportionOfHeight(0.36715f));
-
-	myOpenGL2D.setBounds(proportionOfWidth(0.7848f), proportionOfHeight(0.04f), proportionOfWidth(0.25f), proportionOfHeight(0.50f));
-
-	myAnimatedPaint.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.25f), proportionOfHeight(0.50f));
+	//myOpenGL2D.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.496f), proportionOfHeight(0.70f));
+	myAnimatedPaint.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.496f), proportionOfHeight(0.70f));
 
 
 }
@@ -386,9 +333,9 @@ void myGui::buttonClicked(juce::Button* buttonThatWasClicked)
 	else if (buttonThatWasClicked == juce__textButton2.get())								//Reset les fake values
 	{
 		//[UserButtonCode_juce__textButton2] -- add your button handler code here..
-		juce__slider4->setValue(myGui::FakeAngle1Recall);
-		juce__slider5->setValue(myGui::FakeAngle2Recall);
-		juce__slider6->setValue(myGui::FakeAngle3Recall);
+		juce__slider4->setValue(myGui::angleAlpha);
+		juce__slider5->setValue(myGui::angleTeta);
+		juce__slider6->setValue(myGui::anglePhi);
 		//[/UserButtonCode_juce__textButton2]
 	}
 	else if (buttonThatWasClicked == juce__textButton4.get())
@@ -418,9 +365,9 @@ void myGui::buttonClicked(juce::Button* buttonThatWasClicked)
 	else if (buttonThatWasClicked == juce__textButton8.get())
 	{
 		//[UserButtonCode_juce__textButton8] -- add your button handler code here..				//save fake
-		myGui::FakeAngle1Recall = juce__slider4->getValue();
-		myGui::FakeAngle2Recall = juce__slider5->getValue();
-		myGui::FakeAngle3Recall = juce__slider6->getValue();
+		myGui::angleAlpha = juce__slider4->getValue();
+		myGui::angleTeta = juce__slider5->getValue();
+		myGui::anglePhi = juce__slider6->getValue();
 		//[/UserButtonCode_juce__textButton8]
 	}
 	else if (buttonThatWasClicked == juce__textButton9.get())

@@ -18,7 +18,6 @@ public:
         // in the constructor. You can use it to update counters, animate values, etc.
     }
 
-
     void drawCirclePolar(juce::Graphics& g, float dist, float angle, float rad, juce::Colour color)
     {
         //Point repère : drawcircle(g, 0.5, 0.85, 40, juce::Colours::white);
@@ -44,12 +43,10 @@ public:
         g.setColour(getLookAndFeel().findColour(juce::Slider::thumbColourId));
         
 
-        drawCirclePolar(g,
-            0.3,
-            getFrameCounter(),
-            40,
-            juce::Colours::red);
-
+        drawCirclePolar(g,0.3,getFrameCounter()   + 0, 40, juce::Colours:: blue);
+        drawCirclePolar(g, 0.3, getFrameCounter() + 90, 40, juce::Colours::blue);
+        drawCirclePolar(g, 0.3, getFrameCounter() + 180, 40, juce::Colours::blue);
+        drawCirclePolar(g, 0.3, getFrameCounter() + 260, 40, juce::Colours::blue);
         /*
         auto fishLength = 10;
         juce::Path spinePath;

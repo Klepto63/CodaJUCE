@@ -426,9 +426,6 @@
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>Coda105\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\MainComponent.cpp">
-      <Filter>Coda105\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\myGui.cpp">
       <Filter>Coda105</Filter>
     </ClCompile>
@@ -2336,9 +2333,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\MainComponent.h">
-      <Filter>Coda105\Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\myGui.h">
       <Filter>Coda105</Filter>
     </ClInclude>

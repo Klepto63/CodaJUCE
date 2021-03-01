@@ -18,9 +18,7 @@ public:
         return load(file.loadFileAsString());
     }
 
-    //==============================================================================
     typedef juce::uint32 Index;
-
     struct Vertex { float x, y, z; };
     struct TextureCoord { float x, y; };
 
@@ -63,7 +61,6 @@ public:
     juce::OwnedArray<Shape> shapes;
 
 private:
-    //==============================================================================
     juce::File sourceFile;
 
     struct TripleIndex
@@ -151,7 +148,6 @@ private:
                 return true;
             }
         }
-
         return false;
     }
 
@@ -239,7 +235,6 @@ private:
     {
         Mesh mesh;
         juce::Array<Face> faceGroup;
-
         juce::Array<Material> knownMaterials;
         Material lastMaterial;
         juce::String lastName;
@@ -252,7 +247,6 @@ private:
             if (matchToken(l, "vn")) { mesh.normals.add(parseVertex(l));             continue; }
             if (matchToken(l, "vt")) { mesh.textureCoords.add(parseTextureCoord(l)); continue; }
             if (matchToken(l, "f")) { faceGroup.add(Face(l));                       continue; }
-
             if (matchToken(l, "usemtl"))
             {
                 auto name = juce::String(l).trim();
@@ -346,9 +340,6 @@ private:
 class myopenGLComponent : public juce::OpenGLAppComponent
 {
 public:
-    //! [MainContentComponent]
-        //==============================================================================
-    //! [MainContentComponent constructor]
     myopenGLComponent()
     {
         setSize(800, 600);
@@ -389,15 +380,11 @@ public:
 
         if (!CodaIsConnected)
         {
-            rotationMatrix = viewMatrix.rotation({ -0.0f,
-                                                    5.0f * std::sin((float)getFrameCounter() * 0.01f),
-                                                    0.0f });
+            rotationMatrix = viewMatrix.rotation({ -0.0f,  5.0f * std::sin((float)getFrameCounter() * 0.01f),  0.0f });
         }
         else
         {
-            rotationMatrix = viewMatrix.rotation({ -0.0f,
-                                                    5.0f,
-                                                    0.0f });
+            rotationMatrix = viewMatrix.rotation({ -0.0f,   5.0f,   0.0f });
         }
 
 
@@ -424,18 +411,18 @@ public:
             juce::roundToInt(desktopScale * (float)getWidth()),
             juce::roundToInt(desktopScale * (float)getHeight()));
 
-        shader->use();                                                          // [5]
+        shader->use();
 
-        if (uniforms->projectionMatrix.get() != nullptr)                        // [6]
+        if (uniforms->projectionMatrix.get() != nullptr)
             uniforms->projectionMatrix->setMatrix4(getProjectionMatrix().mat, 1, false);
 
-        if (uniforms->viewMatrix.get() != nullptr)                              // [7]
+        if (uniforms->viewMatrix.get() != nullptr)
             uniforms->viewMatrix->setMatrix4(getViewMatrix().mat, 1, false);
 
-        shape->draw(openGLContext, *attributes);                               // [8]
+        shape->draw(openGLContext, *attributes);
 
         // Reset the element buffers so child Components draw correctly
-        openGLContext.extensions.glBindBuffer(juce::GL_ARRAY_BUFFER, 0);             // [9]
+        openGLContext.extensions.glBindBuffer(juce::GL_ARRAY_BUFFER, 0);
         openGLContext.extensions.glBindBuffer(juce::GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
@@ -489,10 +476,10 @@ public:
             R"(    gl_FragColor = colour;
                })";
 
-        std::unique_ptr<juce::OpenGLShaderProgram> newShader(new juce::OpenGLShaderProgram(openGLContext));   // [1]
+        std::unique_ptr<juce::OpenGLShaderProgram> newShader(new juce::OpenGLShaderProgram(openGLContext));
         juce::String statusText;
 
-        if (newShader->addVertexShader(juce::OpenGLHelpers::translateVertexShaderToV3(vertexShader))          // [2]
+        if (newShader->addVertexShader(juce::OpenGLHelpers::translateVertexShaderToV3(vertexShader))
             && newShader->addFragmentShader(juce::OpenGLHelpers::translateFragmentShaderToV3(fragmentShader))
             && newShader->link())
         {
@@ -500,7 +487,7 @@ public:
             attributes.reset();
             uniforms.reset();
 
-            shader.reset(newShader.release());                                                                 // [3]
+            shader.reset(newShader.release());
             shader->use();
 
             shape.reset(new Shape(openGLContext));
@@ -511,13 +498,12 @@ public:
         }
         else
         {
-            statusText = newShader->getLastError();                                                             // [4]
+            statusText = newShader->getLastError();
         }
     }
  
 private:
-    //==============================================================================
-//! [Vertex]
+
     struct Vertex
     {
         float position[3];
@@ -525,10 +511,7 @@ private:
         float colour[4];
         float texCoord[2];
     };
-    //! [Vertex]
 
-        //==============================================================================
-        // This class just manages the attributes that the shaders use.
     struct Attributes
     {
  
@@ -589,23 +572,16 @@ private:
         }
     };
 
-    //==============================================================================
-    // This class just manages the uniform values that the demo shaders use.
     struct Uniforms
     {
-        //! [Uniforms constructor]
         Uniforms(juce::OpenGLContext& context, juce::OpenGLShaderProgram& shaderProgram)
         {
             projectionMatrix.reset(createUniform(context, shaderProgram, "projectionMatrix"));
             viewMatrix.reset(createUniform(context, shaderProgram, "viewMatrix"));
         }
-        //! [Uniforms constructor]
 
-        //! [Uniforms members]
         std::unique_ptr<juce::OpenGLShaderProgram::Uniform> projectionMatrix, viewMatrix;
-        //! [Uniforms members]
 
-        //! [createUniform]
     private:
         static juce::OpenGLShaderProgram::Uniform* createUniform(juce::OpenGLContext& context,
             juce::OpenGLShaderProgram& shaderProgram,
@@ -617,15 +593,9 @@ private:
             return new juce::OpenGLShaderProgram::Uniform(shaderProgram, uniformName.toRawUTF8());
         }
     };
-    //! [createUniform]
 
-        //==============================================================================
-        /** This loads a 3D model from an OBJ file and converts it into some vertex buffers
-            that we can draw.
-        */
     struct Shape
     {
-        //! [Shape constructor]
         Shape(juce::OpenGLContext& context)
         {
             auto dir = juce::File::getCurrentWorkingDirectory();
@@ -658,19 +628,19 @@ private:
 
             VertexBuffer(juce::OpenGLContext& context, WavefrontObjFile::Shape& aShape) : openGLContext(context)
             {
-                numIndices = aShape.mesh.indices.size();                                    // [1]
+                numIndices = aShape.mesh.indices.size();
 
-                openGLContext.extensions.glGenBuffers(1, &vertexBuffer);                   // [2]
+                openGLContext.extensions.glGenBuffers(1, &vertexBuffer);
                 openGLContext.extensions.glBindBuffer(juce::GL_ARRAY_BUFFER, vertexBuffer);
 
                 juce::Array<Vertex> vertices;
-                createVertexListFromMesh(aShape.mesh, vertices, juce::Colours::green);     // [3]
+                createVertexListFromMesh(aShape.mesh, vertices, juce::Colours::green);
 
-                openGLContext.extensions.glBufferData(juce::GL_ARRAY_BUFFER,                     // [4]
+                openGLContext.extensions.glBufferData(juce::GL_ARRAY_BUFFER,
                     static_cast<juce::GLsizeiptr> (static_cast<size_t> (vertices.size()) * sizeof(Vertex)),
                     vertices.getRawDataPointer(), juce::GL_STATIC_DRAW);
 
-                openGLContext.extensions.glGenBuffers(1, &indexBuffer);                    // [5]
+                openGLContext.extensions.glGenBuffers(1, &indexBuffer);
                 openGLContext.extensions.glBindBuffer(juce::GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
                 openGLContext.extensions.glBufferData(juce::GL_ELEMENT_ARRAY_BUFFER,
                     static_cast<juce::GLsizeiptr> (static_cast<size_t> (numIndices) * sizeof(juce::uint32)),
@@ -682,7 +652,6 @@ private:
                 openGLContext.extensions.glDeleteBuffers(1, &vertexBuffer);
                 openGLContext.extensions.glDeleteBuffers(1, &indexBuffer);
             }
-            //! [VertexBuffer destructor]
 
             void bind()
             {
@@ -690,7 +659,6 @@ private:
                 openGLContext.extensions.glBindBuffer(juce::GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
             }
 
-            //! [VertexBuffer members]
             GLuint vertexBuffer, indexBuffer;
             int numIndices;
             juce::OpenGLContext& openGLContext;
@@ -703,11 +671,11 @@ private:
 
         static void createVertexListFromMesh(const WavefrontObjFile::Mesh& mesh, juce::Array<Vertex>& list, juce::Colour colour)
         {
-            auto scale = 0.2f;                                                  // [6]
+            auto scale = 0.2f;
             WavefrontObjFile::TextureCoord defaultTexCoord{ 0.5f, 0.5f };
             WavefrontObjFile::Vertex defaultNormal{ 0.5f, 0.5f, 0.5f };
 
-            for (auto i = 0; i < mesh.vertices.size(); ++i)                     // [7]
+            for (auto i = 0; i < mesh.vertices.size(); ++i)
             {
                 const auto& v = mesh.vertices.getReference(i);
                 const auto& n = i < mesh.normals.size() ? mesh.normals.getReference(i) : defaultNormal;
@@ -719,14 +687,9 @@ private:
                             { tc.x, tc.y } });                                  
             }
         }
-
     };
 
-   
-
     bool CodaIsConnected;
-
-
     juce::String vertexShader;
     juce::String fragmentShader;
 

@@ -18,7 +18,6 @@ public:
         return load(file.loadFileAsString());
     }
 
-    //==============================================================================
     typedef juce::uint32 Index;
 
     struct Vertex { float x, y, z; };
@@ -63,7 +62,7 @@ public:
     juce::OwnedArray<Shape> shapes;
 
 private:
-    //==============================================================================
+
     juce::File sourceFile;
 
     struct TripleIndex
@@ -140,11 +139,9 @@ private:
     static bool matchToken(juce::String::CharPointerType& t, const char* token)
     {
         auto len = (int)strlen(token);
-
         if (juce::CharacterFunctions::compareUpTo(juce::CharPointer_ASCII(token), t, len) == 0)
         {
             auto end = t + len;
-
             if (end.isEmpty() || end.isWhitespace())
             {
                 t = end.findEndOfWhitespace();
@@ -318,7 +315,6 @@ private:
             if (matchToken(l, "Ke")) { material.emission = parseVertex(l); continue; }
             if (matchToken(l, "Ni")) { material.refractiveIndex = parseFloat(l);  continue; }
             if (matchToken(l, "Ns")) { material.shininess = parseFloat(l);  continue; }
-
             if (matchToken(l, "map_Ka")) { material.ambientTextureName = juce::String(l).trim(); continue; }
             if (matchToken(l, "map_Kd")) { material.diffuseTextureName = juce::String(l).trim(); continue; }
             if (matchToken(l, "map_Ks")) { material.specularTextureName = juce::String(l).trim(); continue; }
@@ -343,7 +339,6 @@ public:
     myopenGLComponent2D()
     {
         OpenGLAppComponent::setSize(800, 600);
-
     }
 
     ~myopenGLComponent2D() override
@@ -366,29 +361,19 @@ public:
 
     juce::Matrix3D<float> getProjectionMatrix() const
     {
-        auto w = 0.6f / (0.25f + 0.1f);                                        // [1]
-        auto h = w * OpenGLAppComponent::getLocalBounds().toFloat().getAspectRatio(false);         // [2]
+        auto w = 0.6f / (0.25f + 0.1f); 
+        auto h = w * OpenGLAppComponent::getLocalBounds().toFloat().getAspectRatio(false);
 
-        return juce::Matrix3D<float>::fromFrustum(-w, w, -h, h, 4.0f, 30.0f);  // [3]
+        return juce::Matrix3D<float>::fromFrustum(-w, w, -h, h, 4.0f, 30.0f);
     }
 
     juce::Matrix3D<float> getViewMatrix() const
     {
-        juce::Matrix3D<float> viewMatrix({ 0.0f, 
-                                          -2.0f, 
-                                         -10.0f});
-
+        juce::Matrix3D<float> viewMatrix({ 0.0f, -2.0f, -10.0f});
         juce::Matrix3D<float> rotationMatrix;
         juce::Matrix3D<float> rotationMatrix2;
-
-        rotationMatrix = viewMatrix.rotation({   -3.1415f * 0.5,
-                                                0 ,
-                                                0 });
-
-        rotationMatrix2 = viewMatrix.rotation({ 0,
-                                                2.0f * std::sin((float)OpenGLAppComponent::getFrameCounter() * 0.01f) ,
-                                                0 });
-
+        rotationMatrix = viewMatrix.rotation({ -3.1415f * 0.5,  0 ,  0 });
+        rotationMatrix2 = viewMatrix.rotation({ 0, 2.0f * std::sin((float)OpenGLAppComponent::getFrameCounter() * 0.01f) , 0 });
         return (rotationMatrix2 * rotationMatrix * viewMatrix);
     }
 
@@ -407,29 +392,26 @@ public:
             juce::roundToInt(desktopScale * (float)OpenGLAppComponent::getWidth()),
             juce::roundToInt(desktopScale * (float)OpenGLAppComponent::getHeight()));
 
-        shader->use();                                                          // [5]
-
-        if (uniforms->projectionMatrix.get() != nullptr)                        // [6]
+        shader->use();
+        if (uniforms->projectionMatrix.get() != nullptr)
             uniforms->projectionMatrix->setMatrix4(getProjectionMatrix().mat, 1, false);
 
-        if (uniforms->viewMatrix.get() != nullptr)                              // [7]
+        if (uniforms->viewMatrix.get() != nullptr)
             uniforms->viewMatrix->setMatrix4(getViewMatrix().mat, 1, false);
 
-        shape->draw(openGLContext, *attributes);                               // [8]
+        shape->draw(openGLContext, *attributes);
 
-        openGLContext.extensions.glBindBuffer(juce::GL_ARRAY_BUFFER, 0);             // [9]
+        openGLContext.extensions.glBindBuffer(juce::GL_ARRAY_BUFFER, 0);
         openGLContext.extensions.glBindBuffer(juce::GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
 
     void paint(juce::Graphics& g) override
     {
-
     }
 
     void resized() override
     {
-
     }
 
     void createShaders()
@@ -471,10 +453,10 @@ public:
             R"(    gl_FragColor = colour;
                })";
 
-        std::unique_ptr<juce::OpenGLShaderProgram> newShader(new juce::OpenGLShaderProgram(openGLContext));   // [1]
+        std::unique_ptr<juce::OpenGLShaderProgram> newShader(new juce::OpenGLShaderProgram(openGLContext));
         juce::String statusText;
 
-        if (newShader->addVertexShader(juce::OpenGLHelpers::translateVertexShaderToV3(vertexShader))          // [2]
+        if (newShader->addVertexShader(juce::OpenGLHelpers::translateVertexShaderToV3(vertexShader))
             && newShader->addFragmentShader(juce::OpenGLHelpers::translateFragmentShaderToV3(fragmentShader))
             && newShader->link())
         {
@@ -482,7 +464,7 @@ public:
             attributes.reset();
             uniforms.reset();
 
-            shader.reset(newShader.release());                                                                 // [3]
+            shader.reset(newShader.release());
             shader->use();
 
             shape.reset(new Shape(openGLContext));
@@ -493,13 +475,11 @@ public:
         }
         else
         {
-            statusText = newShader->getLastError();                                                             // [4]
+            statusText = newShader->getLastError();
         }
     }
 
 private:
-    //==============================================================================
-//! [Vertex]
     struct Vertex
     {
         float position[3];
@@ -507,13 +487,9 @@ private:
         float colour[4];
         float texCoord[2];
     };
-    //! [Vertex]
 
-        //==============================================================================
-        // This class just manages the attributes that the shaders use.
     struct Attributes
     {
-
         Attributes(juce::OpenGLContext& context, juce::OpenGLShaderProgram& shaderProgram)
         {
             position.reset(createAttribute(context, shaderProgram, "position"));
@@ -571,23 +547,16 @@ private:
         }
     };
 
-    //==============================================================================
-    // This class just manages the uniform values that the demo shaders use.
     struct Uniforms
     {
-        //! [Uniforms constructor]
         Uniforms(juce::OpenGLContext& context, juce::OpenGLShaderProgram& shaderProgram)
         {
             projectionMatrix.reset(createUniform(context, shaderProgram, "projectionMatrix"));
             viewMatrix.reset(createUniform(context, shaderProgram, "viewMatrix"));
         }
-        //! [Uniforms constructor]
 
-        //! [Uniforms members]
         std::unique_ptr<juce::OpenGLShaderProgram::Uniform> projectionMatrix, viewMatrix;
-        //! [Uniforms members]
 
-        //! [createUniform]
     private:
         static juce::OpenGLShaderProgram::Uniform* createUniform(juce::OpenGLContext& context,
             juce::OpenGLShaderProgram& shaderProgram,
@@ -599,15 +568,9 @@ private:
             return new juce::OpenGLShaderProgram::Uniform(shaderProgram, uniformName.toRawUTF8());
         }
     };
-    //! [createUniform]
 
-        //==============================================================================
-        /** This loads a 3D model from an OBJ file and converts it into some vertex buffers
-            that we can draw.
-        */
     struct Shape
     {
-        //! [Shape constructor]
         Shape(juce::OpenGLContext& context)
         {
             auto dir = juce::File::getCurrentWorkingDirectory();
@@ -637,22 +600,21 @@ private:
     private:
         struct VertexBuffer
         {
-
             VertexBuffer(juce::OpenGLContext& context, WavefrontObjFile2D::Shape& aShape) : openGLContext(context)
             {
-                numIndices = aShape.mesh.indices.size();                                    // [1]
+                numIndices = aShape.mesh.indices.size();
 
-                openGLContext.extensions.glGenBuffers(1, &vertexBuffer);                   // [2]
+                openGLContext.extensions.glGenBuffers(1, &vertexBuffer);
                 openGLContext.extensions.glBindBuffer(juce::GL_ARRAY_BUFFER, vertexBuffer);
 
                 juce::Array<Vertex> vertices;
-                createVertexListFromMesh(aShape.mesh, vertices, juce::Colours::green);     // [3]
+                createVertexListFromMesh(aShape.mesh, vertices, juce::Colours::green);
 
-                openGLContext.extensions.glBufferData(juce::GL_ARRAY_BUFFER,                     // [4]
+                openGLContext.extensions.glBufferData(juce::GL_ARRAY_BUFFER,
                     static_cast<juce::GLsizeiptr> (static_cast<size_t> (vertices.size()) * sizeof(Vertex)),
                     vertices.getRawDataPointer(), juce::GL_STATIC_DRAW);
 
-                openGLContext.extensions.glGenBuffers(1, &indexBuffer);                    // [5]
+                openGLContext.extensions.glGenBuffers(1, &indexBuffer);
                 openGLContext.extensions.glBindBuffer(juce::GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
                 openGLContext.extensions.glBufferData(juce::GL_ELEMENT_ARRAY_BUFFER,
                     static_cast<juce::GLsizeiptr> (static_cast<size_t> (numIndices) * sizeof(juce::uint32)),
@@ -664,7 +626,6 @@ private:
                 openGLContext.extensions.glDeleteBuffers(1, &vertexBuffer);
                 openGLContext.extensions.glDeleteBuffers(1, &indexBuffer);
             }
-            //! [VertexBuffer destructor]
 
             void bind()
             {
@@ -672,7 +633,6 @@ private:
                 openGLContext.extensions.glBindBuffer(juce::GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
             }
 
-            //! [VertexBuffer members]
             GLuint vertexBuffer, indexBuffer;
             int numIndices;
             juce::OpenGLContext& openGLContext;
@@ -685,11 +645,11 @@ private:
 
         static void createVertexListFromMesh(const WavefrontObjFile2D::Mesh& mesh, juce::Array<Vertex>& list, juce::Colour colour)
         {
-            auto scale = 0.2f;                                                  // [6]
+            auto scale = 0.2f;
             WavefrontObjFile2D::TextureCoord defaultTexCoord{ 0.5f, 0.5f };
             WavefrontObjFile2D::Vertex defaultNormal{ 0.5f, 0.5f, 0.5f };
 
-            for (auto i = 0; i < mesh.vertices.size(); ++i)                     // [7]
+            for (auto i = 0; i < mesh.vertices.size(); ++i)
             {
                 const auto& v = mesh.vertices.getReference(i);
                 const auto& n = i < mesh.normals.size() ? mesh.normals.getReference(i) : defaultNormal;
@@ -701,17 +661,13 @@ private:
                             { tc.x, tc.y } });
             }
         }
-
     };
-
 
     juce::String vertexShader;
     juce::String fragmentShader;
-
     std::unique_ptr<juce::OpenGLShaderProgram> shader;
     std::unique_ptr<Shape> shape;
     std::unique_ptr<Attributes> attributes;
     std::unique_ptr<Uniforms> uniforms;
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(myopenGLComponent2D)
 };
