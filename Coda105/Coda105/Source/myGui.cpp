@@ -234,9 +234,13 @@ myGui::myGui()
 	juce__textButton12->setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
 
 	addAndMakeVisible(myOpenGL);
-	addAndMakeVisible(myOpenGL2D);
+	addAndMakeVisible(myOpenGL);
 
-	setSize(1300, 650);
+	//addAndMakeVisible(myOpenGL2D);
+
+	addAndMakeVisible(myAnimatedPaint);
+
+	setSize(1300, 650);//myAnimatedPaint est calé sur ca en hardcode
 	//setResizeLimits(1600, 800, 800, 400);
 
 	//[Constructor] You can add your own custom stuff here..
@@ -342,7 +346,11 @@ void myGui::resized()
 
 	myOpenGL.setBounds(proportionOfWidth(0.02848f), proportionOfHeight(0.26409f), proportionOfWidth(0.2238f), proportionOfHeight(0.36715f));
 
-	myOpenGL2D.setBounds(proportionOfWidth(0.2848f), proportionOfHeight(0.04f), proportionOfWidth(0.50f), proportionOfHeight(0.65f));
+	myOpenGL2D.setBounds(proportionOfWidth(0.7848f), proportionOfHeight(0.04f), proportionOfWidth(0.25f), proportionOfHeight(0.50f));
+
+	myAnimatedPaint.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.25f), proportionOfHeight(0.50f));
+
+
 }
 
 void myGui::buttonClicked(juce::Button* buttonThatWasClicked)

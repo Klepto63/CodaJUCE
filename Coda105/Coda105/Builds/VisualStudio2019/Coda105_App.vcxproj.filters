@@ -4601,6 +4601,9 @@
     <ClInclude Include="..\..\Source\myOpenGL2D.h">
       <Filter>Coda105</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\myAnimatedPaint.h">
+      <Filter>Coda105</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\CMakeLists.txt">

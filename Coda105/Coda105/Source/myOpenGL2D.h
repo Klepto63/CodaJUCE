@@ -340,12 +340,10 @@ private:
 class myopenGLComponent2D : public juce::OpenGLAppComponent
 {
 public:
-    //! [MainContentComponent]
-        //==============================================================================
-    //! [MainContentComponent constructor]
     myopenGLComponent2D()
     {
-        setSize(800, 600);
+        OpenGLAppComponent::setSize(800, 600);
+
     }
 
     ~myopenGLComponent2D() override
@@ -369,7 +367,7 @@ public:
     juce::Matrix3D<float> getProjectionMatrix() const
     {
         auto w = 0.6f / (0.25f + 0.1f);                                        // [1]
-        auto h = w * getLocalBounds().toFloat().getAspectRatio(false);         // [2]
+        auto h = w * OpenGLAppComponent::getLocalBounds().toFloat().getAspectRatio(false);         // [2]
 
         return juce::Matrix3D<float>::fromFrustum(-w, w, -h, h, 4.0f, 30.0f);  // [3]
     }
@@ -388,7 +386,7 @@ public:
                                                 0 });
 
         rotationMatrix2 = viewMatrix.rotation({ 0,
-                                                2.0f * std::sin((float)getFrameCounter() * 0.01f) ,
+                                                2.0f * std::sin((float)OpenGLAppComponent::getFrameCounter() * 0.01f) ,
                                                 0 });
 
         return (rotationMatrix2 * rotationMatrix * viewMatrix);
@@ -399,15 +397,15 @@ public:
         jassert(juce::OpenGLHelpers::isContextActive());
 
         auto desktopScale = (float)openGLContext.getRenderingScale();
-        juce::OpenGLHelpers::clear(juce::Colours::black);
+        juce::OpenGLHelpers::clear(juce::Colours::transparentWhite);
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         glViewport(0,
             0,
-            juce::roundToInt(desktopScale * (float)getWidth()),
-            juce::roundToInt(desktopScale * (float)getHeight()));
+            juce::roundToInt(desktopScale * (float)OpenGLAppComponent::getWidth()),
+            juce::roundToInt(desktopScale * (float)OpenGLAppComponent::getHeight()));
 
         shader->use();                                                          // [5]
 
@@ -419,39 +417,14 @@ public:
 
         shape->draw(openGLContext, *attributes);                               // [8]
 
-        // Reset the element buffers so child Components draw correctly
         openGLContext.extensions.glBindBuffer(juce::GL_ARRAY_BUFFER, 0);             // [9]
         openGLContext.extensions.glBindBuffer(juce::GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
 
-    void drawCirclePolar(juce::Graphics& g, float dist, float angle, float rad, juce::Colour color)
-    {
-        //Point repère : drawcircle(g, 0.5, 0.85, 40, juce::Colours::white);
-        float x = 0.5  + dist*(std::cos(angle*2*3.1415/360));
-        float y = (angle / 360);
-        //float y = 0.95 - dist * (std::sin(angle * 2 * 3.1415 / 360));
-        drawcircle(g, x, y, rad, color);
-    }
-
-    void drawcircle(juce::Graphics& g, float x, float y, float rad, juce::Colour color)
-    {
-        g.setColour(juce::Colours::white);
-        auto w = getLocalBounds().toFloat().getWidth();
-        auto h = getLocalBounds().toFloat().getHeight();
-        g.fillEllipse((w * x) - (rad * 0.5f), (h * y) - (rad*0.5f), rad, rad);
-        float tempRad = 0.85f * rad;
-        g.setColour(color);
-        g.fillEllipse((w * x) - (tempRad * 0.5f), (h * y) - (tempRad * 0.5f), tempRad,  tempRad);
-    }
-
     void paint(juce::Graphics& g) override
     {
-        drawCirclePolar(g,
-                        0.3, 
-                        (float)getFrameCounter(),
-                        40,
-                        juce::Colours::red);
+
     }
 
     void resized() override
@@ -730,8 +703,6 @@ private:
         }
 
     };
-
-
 
 
     juce::String vertexShader;

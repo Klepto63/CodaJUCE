@@ -23,6 +23,7 @@
 #include <JuceHeader.h>
 #include "myOpenGL.h"
 #include "myOpenGL2D.h"
+#include "myAnimatedPaint.h"
 //[/Headers]
 
 
@@ -65,6 +66,7 @@ private:
     double FakeAngle3Recall = 180;
     myopenGLComponent    myOpenGL;
     myopenGLComponent2D  myOpenGL2D;
+    myAnimatedPaint      myAnimatedPaint;
 
     //==============================================================================
     std::unique_ptr<juce::TextButton> juce__textButton11;
