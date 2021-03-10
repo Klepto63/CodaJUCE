@@ -63,7 +63,7 @@ public:
       
         drawScene(g);
 
-        
+
         drawCirclePolar(g, 0.3, getFrameCounter(), 30, juce::Colours:: blue);
         drawCirclePolar(g, 0.3, getFrameCounter() + 45, 30                              , juce::Colours::purple);
         drawCirclePolar(g, 0.3, getFrameCounter() + 90, 30                              , juce::Colours::red);

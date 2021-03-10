@@ -338,7 +338,10 @@ class myopenGLComponent2D : public juce::OpenGLAppComponent
 public:
     myopenGLComponent2D()
     {
+        openGLContext.setComponentPaintingEnabled(1);
+        openGLContext.setContinuousRepainting(1);
         OpenGLAppComponent::setSize(800, 600);
+
     }
 
     ~myopenGLComponent2D() override
@@ -363,7 +366,6 @@ public:
     {
         auto w = 0.6f / (0.25f + 0.1f); 
         auto h = w * OpenGLAppComponent::getLocalBounds().toFloat().getAspectRatio(false);
-
         return juce::Matrix3D<float>::fromFrustum(-w, w, -h, h, 4.0f, 30.0f);
     }
 
@@ -379,10 +381,13 @@ public:
 
     void render() override
     {
+        openGLContext.triggerRepaint();
+
         jassert(juce::OpenGLHelpers::isContextActive());
 
         auto desktopScale = (float)openGLContext.getRenderingScale();
-        juce::OpenGLHelpers::clear(juce::Colours::transparentWhite);
+        juce::OpenGLHelpers::clear(juce::Colours::transparentBlack);
+
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -399,16 +404,62 @@ public:
         if (uniforms->viewMatrix.get() != nullptr)
             uniforms->viewMatrix->setMatrix4(getViewMatrix().mat, 1, false);
 
+     
+
         shape->draw(openGLContext, *attributes);
 
         openGLContext.extensions.glBindBuffer(juce::GL_ARRAY_BUFFER, 0);
         openGLContext.extensions.glBindBuffer(juce::GL_ELEMENT_ARRAY_BUFFER, 0);
+
     }
 
+    void drawCirclePolar(juce::Graphics& g, float dist, float angle, float rad, juce::Colour color)
+    {
+        //Point repère : drawcircle(g, 0.5, 0.85, 40, juce::Colours::white);
+        float x = 0.5 + dist * (std::cos(angle * 2 * 3.1415 / 360));
+        float y = 0.5 - dist * (std::sin(angle * 2 * 3.1415 / 360));
+        //float y = 0.95 - dist * (std::sin(angle * 2 * 3.1415 / 360));
+        drawcircle(g, x, y, rad, color);
+    }
+
+    void drawcircle(juce::Graphics& g, float x, float y, float rad, juce::Colour color)
+    {
+        auto w = getLocalBounds().toFloat().getWidth();
+        auto h = getLocalBounds().toFloat().getHeight();
+        g.setColour(color);
+        g.fillEllipse((w * x) - (rad * 0.5f), (h * y) - (rad * 0.5f), rad, rad);
+    }
+
+    void drawScene(juce::Graphics& g)
+    {
+        g.setColour(juce::Colours::darkgrey);
+        auto w = getLocalBounds().toFloat().getWidth();
+        auto h = getLocalBounds().toFloat().getHeight();
+        //g.drawLine(0, 0.5*h, w, 0.5*h);
+        //g.drawLine(0.5*w, 0, 0.5*w, h);
+        g.drawLine(0, 0, w, h);
+        g.drawLine(w, 0, 0, h);
+        float rad;
+        for (int i = 1; i < 5; i++)
+        {
+            rad = 0.3 * i;
+            g.drawEllipse(0.5 * w - (rad * 0.5f * w), 0.5 * h - (rad * 0.5f * h), rad * w, rad * h, 3 - 0.5 * i);
+        }
+    }
+
+
+    int i = 1;
 
     void paint(juce::Graphics& g) override
     {
+        g.fillAll(juce::Colours::transparentBlack);
+
+        g.setColour(getLookAndFeel().findColour(juce::Slider::thumbColourId));
+        drawCirclePolar(g, 0.3, i + 180, 30, juce::Colours::green);
+        drawScene(g);
+        i++;
     }
+
 
     void resized() override
     {
@@ -477,6 +528,8 @@ public:
         {
             statusText = newShader->getLastError();
         }
+
+
     }
 
 private:

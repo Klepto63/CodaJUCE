@@ -10,7 +10,6 @@ enum TransportState {
 
 myGui::myGui()
 {
-	//[Constructor_pre] You can add your own custom stuff here..
 	juce__textButton11.reset(new juce::TextButton("ButtonPresetB"));
 	addAndMakeVisible(juce__textButton11.get());
 	juce__textButton11->setButtonText(TRANS("B"));
@@ -205,8 +204,8 @@ myGui::myGui()
 	juce__textButton12->setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
 
 	addAndMakeVisible(myOpenGL);
-	//addAndMakeVisible(myOpenGL2D);
-	addAndMakeVisible(myAnimatedPaint);
+	addAndMakeVisible(myOpenGL2D);
+	//addAndMakeVisible(myAnimatedPaint);
 
 	setSize(1300, 650);
 	//setResizeLimits(1600, 800, 800, 400);
@@ -257,8 +256,6 @@ void myGui::paint(juce::Graphics& g)
 	{
 		int x = proportionOfWidth(0.0285f), y = proportionOfHeight(0.2641f), width = proportionOfWidth(0.2238f), height = proportionOfHeight(0.3671f);
 		juce::Colour fillColour = juce::Colours::black;
-		//[UserPaintCustomArguments] Customize the painting arguments here..
-		//[/UserPaintCustomArguments]
 		g.setColour(fillColour);
 		g.fillRect(x, y, width, height);
 	}
@@ -294,8 +291,8 @@ void myGui::resized()
 	juce__textButton12->setBounds(proportionOfWidth(0.4964f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
 
 	myOpenGL.setBounds(proportionOfWidth(0.02848f), proportionOfHeight(0.26409f), proportionOfWidth(0.2238f), proportionOfHeight(0.36715f));
-	//myOpenGL2D.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.496f), proportionOfHeight(0.70f));
-	myAnimatedPaint.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.496f), proportionOfHeight(0.70f));
+	myOpenGL2D.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.496f), proportionOfHeight(0.70f));
+	//myAnimatedPaint.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.496f), proportionOfHeight(0.70f));
 
 
 }
@@ -462,33 +459,16 @@ void myGui::sliderValueChanged(juce::Slider* sliderThatWasMoved)
 	}
 	else if (sliderThatWasMoved == juce__slider8.get())
 	{
-		//[UserSliderCode_juce__slider8] -- add your slider handling code here..
-		//[/UserSliderCode_juce__slider8]
 	}
-
-	//[UsersliderValueChanged_Post]
-	//[/UsersliderValueChanged_Post]
 }
 
 void myGui::comboBoxChanged(juce::ComboBox* comboBoxThatHasChanged)
 {
-	//[UsercomboBoxChanged_Pre]
-	//[/UsercomboBoxChanged_Pre]
-
 	if (comboBoxThatHasChanged == juce__comboBox.get())
 	{
-		//[UserComboBoxCode_juce__comboBox] -- add your combo box handling code here..
-		//[/UserComboBoxCode_juce__comboBox]
 	}
-
-	//[UsercomboBoxChanged_Post]
-	//[/UsercomboBoxChanged_Post]
 }
 
-
-
-//[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-//[/MiscUserCode]
 
 
 //==============================================================================
@@ -628,8 +608,4 @@ BEGIN_JUCER_METADATA
 END_JUCER_METADATA
 */
 #endif
-
-
-//[EndFile] You can add extra defines here...
-//[/EndFile]
 

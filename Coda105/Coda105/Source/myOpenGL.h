@@ -331,12 +331,6 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavefrontObjFile)
 };
 
-
-
-
-
-
-
 class myopenGLComponent : public juce::OpenGLAppComponent
 {
 public:
@@ -428,9 +422,6 @@ public:
 
     void paint(juce::Graphics& g) override
     {
-        //g.setColour(getLookAndFeel().findColour(juce::Label::textColourId));
-        //g.setFont(15);
-        //g.drawText("Not connected", 25, 20, 300, 30, juce::Justification::left);
     }
 
     void resized() override
