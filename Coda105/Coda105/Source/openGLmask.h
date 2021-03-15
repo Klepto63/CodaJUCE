@@ -331,16 +331,16 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavefrontObjFile)
 };
 
-class myopenGLComponent : public juce::OpenGLAppComponent
+class openGLMaskComponent : public juce::OpenGLAppComponent
 {
 public:
-    myopenGLComponent()
+    openGLMaskComponent()
     {
         setSize(800, 600);
         CodaIsConnected = false;
     }
 
-    ~myopenGLComponent() override
+    ~openGLMaskComponent() override
     {
         shutdownOpenGL();
     }
@@ -374,13 +374,12 @@ public:
 
         if (!CodaIsConnected)
         {
-            rotationMatrix = viewMatrix.rotation({ -0.0f,  5.0f * std::sin((float)getFrameCounter() * 0.01f),  0.0f });
+            rotationMatrix = viewMatrix.rotation({ -0.0f,  6.0f * std::sin((float)getFrameCounter() * 0.008f),  0.0f });
         }
         else
         {
-            rotationMatrix = viewMatrix.rotation({ -0.0f,   5.0f,   0.0f });
+            rotationMatrix = viewMatrix.rotation({ (float) (angleAlpha/57.2957),   (float)((angleTeta+0)/ 57.2957),   (float)(anglePhi / 57.2957)});
         }
-
 
         return rotationMatrix * viewMatrix;                                     
     }
@@ -422,6 +421,13 @@ public:
 
     void paint(juce::Graphics& g) override
     {
+    }
+
+    void set_angle(double alpha, double teta, double phi)
+    {
+        angleAlpha = alpha;
+        angleTeta = teta;
+        anglePhi = phi;
     }
 
     void resized() override
@@ -494,6 +500,11 @@ public:
     }
  
 private:
+
+
+    double angleAlpha;
+    double angleTeta;
+    double anglePhi;
 
     struct Vertex
     {
@@ -689,5 +700,5 @@ private:
     std::unique_ptr<Attributes> attributes;
     std::unique_ptr<Uniforms> uniforms;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(myopenGLComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(openGLMaskComponent)
 };

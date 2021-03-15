@@ -1,5 +1,5 @@
 #include "myGui.h"
-#include "myOpenGL.h"
+#include "openGLmask.h"
 
 enum TransportState {
 	Stopped,
@@ -117,10 +117,12 @@ myGui::myGui()
 	addAndMakeVisible(juce__comboBox.get());
 	juce__comboBox->setEditableText(false);
 	juce__comboBox->setJustificationType(juce::Justification::centredLeft);
-	juce__comboBox->setTextWhenNothingSelected(TRANS("Vivaldi - Winter"));
+	juce__comboBox->setTextWhenNothingSelected(TRANS("Select song"));
 	juce__comboBox->setTextWhenNoChoicesAvailable(TRANS("(no choices)"));
 	juce__comboBox->addItem(TRANS("Vivaldi - Winter"), 1);
 	juce__comboBox->addItem(TRANS("Vivaldi - Summer"), 2);
+	juce__comboBox->addItem(TRANS("Vivaldi - Presto"), 3);
+
 	juce__comboBox->addSeparator();
 	juce__comboBox->addListener(this);
 
@@ -203,8 +205,8 @@ myGui::myGui()
 	juce__textButton12->setColour(juce::TextButton::buttonColourId, juce::Colour(0xff152525));
 	juce__textButton12->setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
 
-	addAndMakeVisible(myOpenGL);
-	addAndMakeVisible(myOpenGL2D);
+	addAndMakeVisible(openGLMask);
+	addAndMakeVisible(openGLScene);
 	//addAndMakeVisible(myAnimatedPaint);
 
 	setSize(1300, 650);
@@ -252,7 +254,7 @@ myGui::~myGui()
 //==============================================================================
 void myGui::paint(juce::Graphics& g)
 {
-	g.fillAll(juce::Colour(0xff152525));
+	g.fillAll(juce::Colour(0xff152028));
 	{
 		int x = proportionOfWidth(0.0285f), y = proportionOfHeight(0.2641f), width = proportionOfWidth(0.2238f), height = proportionOfHeight(0.3671f);
 		juce::Colour fillColour = juce::Colours::black;
@@ -290,9 +292,9 @@ void myGui::resized()
 	juce__textButton10->setBounds(proportionOfWidth(0.4395f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
 	juce__textButton12->setBounds(proportionOfWidth(0.4964f), proportionOfHeight(0.8631f), proportionOfWidth(0.0407f), proportionOfHeight(0.0773f));
 
-	myOpenGL.setBounds(proportionOfWidth(0.02848f), proportionOfHeight(0.26409f), proportionOfWidth(0.2238f), proportionOfHeight(0.36715f));
-	myOpenGL2D.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.496f), proportionOfHeight(0.70f));
-	//myAnimatedPaint.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.496f), proportionOfHeight(0.70f));
+	openGLMask.setBounds(proportionOfWidth(0.02848f), proportionOfHeight(0.26409f), proportionOfWidth(0.2238f), proportionOfHeight(0.36715f));
+	openGLScene.setBounds(proportionOfWidth(0.2686f), proportionOfHeight(0.04f), proportionOfWidth(0.496f), proportionOfHeight(0.70f));
+
 
 
 }
@@ -316,14 +318,16 @@ void myGui::buttonClicked(juce::Button* buttonThatWasClicked)
 			juce__slider->setValue(juce__slider4->getValue());
 			juce__slider2->setValue(juce__slider5->getValue());
 			juce__slider3->setValue(juce__slider6->getValue());
-			myOpenGL.set_CodaIsConnected(true);
+			openGLMask.set_CodaIsConnected(true);
+			openGLScene.set_CodaIsConnected(true);
 		}
 		else
 		{//off
 			juce__slider->setValue(0);
 			juce__slider2->setValue(0);
 			juce__slider3->setValue(0);
-			myOpenGL.set_CodaIsConnected(false);
+			openGLMask.set_CodaIsConnected(false);
+			openGLScene.set_CodaIsConnected(false);
 		}
 		//[/UserButtonCode_juce__toggleButton2]
 	}
@@ -337,9 +341,14 @@ void myGui::buttonClicked(juce::Button* buttonThatWasClicked)
 	}
 	else if (buttonThatWasClicked == juce__textButton4.get())
 	{
-		//[UserButtonCode_juce__textButton4] -- add your button handler code here..
-		LOG("Loading " + juce__comboBox->getItemText(juce__comboBox->getSelectedId()));
-		//[/UserButtonCode_juce__textButton4]
+		int n = juce__comboBox->getSelectedId();
+		if (n > 0)
+		{
+			n--;
+		}
+		LOG("Loading " + juce__comboBox->getItemText(n));
+		openGLScene.set_nameScene(juce__comboBox->getItemText(n));
+
 	}
 	else if (buttonThatWasClicked == juce__textButton5.get())
 	{
@@ -411,51 +420,46 @@ void myGui::buttonClicked(juce::Button* buttonThatWasClicked)
 
 void myGui::sliderValueChanged(juce::Slider* sliderThatWasMoved)
 {
-	//[UsersliderValueChanged_Pre]
-	//[/UsersliderValueChanged_Pre]
+	openGLMask.set_angle(juce__slider->getValue(),
+						 juce__slider2->getValue(),
+						 juce__slider3->getValue());
 
-	if (sliderThatWasMoved == juce__slider.get())
+	openGLScene.set_angle(juce__slider->getValue(),
+						 juce__slider2->getValue(),
+						 juce__slider3->getValue());
+
+
+	openGLScene.set_fake_angle(juce__slider->getValue());
+
+	if (sliderThatWasMoved == juce__slider.get())				//Angle : Alpha
 	{
-		//[UserSliderCode_juce__slider] -- add your slider handling code here..
-		//[/UserSliderCode_juce__slider]
 	}
-	else if (sliderThatWasMoved == juce__slider2.get())
+	else if (sliderThatWasMoved == juce__slider2.get())			//Angle : Teta
 	{
-		//[UserSliderCode_juce__slider2] -- add your slider handling code here..
-		//[/UserSliderCode_juce__slider2]
 	}
-	else if (sliderThatWasMoved == juce__slider3.get())
+	else if (sliderThatWasMoved == juce__slider3.get())			//Angle : Phi
 	{
-		//[UserSliderCode_juce__slider3] -- add your slider handling code here..
-		//[/UserSliderCode_juce__slider3]
 	}
-	else if (sliderThatWasMoved == juce__slider4.get())
+	else if (sliderThatWasMoved == juce__slider4.get())			//Angle : fakeAlpha
 	{
-		//[UserSliderCode_juce__slider4] -- add your slider handling code here..
 		if (juce__toggleButton2->getToggleStateValue() == true)
 		{
 			juce__slider->setValue(juce__slider4->getValue());
 		}
-
-		//[/UserSliderCode_juce__slider4]
 	}
-	else if (sliderThatWasMoved == juce__slider5.get())
+	else if (sliderThatWasMoved == juce__slider5.get())			//Angle : fakeTeta
 	{
-		//[UserSliderCode_juce__slider5] -- add your slider handling code here..
 		if (juce__toggleButton2->getToggleStateValue() == true)
 		{
 			juce__slider2->setValue(juce__slider5->getValue());
 		}
-		//[/UserSliderCode_juce__slider5]
 	}
-	else if (sliderThatWasMoved == juce__slider6.get())
+	else if (sliderThatWasMoved == juce__slider6.get())			//Angle : fakePhi
 	{
-		//[UserSliderCode_juce__slider6] -- add your slider handling code here..
 		if (juce__toggleButton2->getToggleStateValue() == true)
 		{
 			juce__slider3->setValue(juce__slider6->getValue());
 		}
-		//[/UserSliderCode_juce__slider6]
 	}
 	else if (sliderThatWasMoved == juce__slider8.get())
 	{
@@ -468,7 +472,6 @@ void myGui::comboBoxChanged(juce::ComboBox* comboBoxThatHasChanged)
 	{
 	}
 }
-
 
 
 //==============================================================================

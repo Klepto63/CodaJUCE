@@ -38,10 +38,14 @@ public:
     {
     public:
         MainWindow (juce::String name)
-            : DocumentWindow (name,
-                              juce::Desktop::getInstance().getDefaultLookAndFeel()
-                                                          .findColour (juce::ResizableWindow::backgroundColourId),
-                              DocumentWindow::allButtons)
+            : DocumentWindow(name,
+                juce::Colours::red,
+                DocumentWindow::allButtons)
+
+           // : DocumentWindow (name,
+           //                   juce::Desktop::getInstance().getDefaultLookAndFeel()
+           //                                               .findColour (juce::ResizableWindow::backgroundColourId),
+           //                   DocumentWindow::allButtons)
         {
             setUsingNativeTitleBar (false);
             setContentOwned (new myGui(), true);

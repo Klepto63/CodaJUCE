@@ -2016,7 +2016,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\myAnimatedPaint.h" />
     <ClInclude Include="..\..\Source\myGui.h" />
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h" />
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h" />
@@ -2769,8 +2768,8 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_opengl\utils\juce_OpenGLAppComponent.h" />
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_opengl\juce_opengl.h" />
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h" />
-    <ClInclude Include="..\..\Source\myOpenGL.h" />
-    <ClInclude Include="..\..\Source\myOpenGL2D.h" />
+    <ClInclude Include="..\..\Source\openGLmask.h" />
+    <ClInclude Include="..\..\Source\openGLscene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\CMakeLists.txt" />

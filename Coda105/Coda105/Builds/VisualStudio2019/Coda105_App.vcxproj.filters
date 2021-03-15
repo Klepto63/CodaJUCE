@@ -4589,13 +4589,10 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>JUCE Library Code</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\myOpenGL.h">
+    <ClInclude Include="..\..\Source\openGLmask.h">
       <Filter>Coda105</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\myOpenGL2D.h">
-      <Filter>Coda105</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\myAnimatedPaint.h">
+    <ClInclude Include="..\..\Source\openGLscene.h">
       <Filter>Coda105</Filter>
     </ClInclude>
   </ItemGroup>

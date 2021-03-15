@@ -1,8 +1,8 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "myOpenGL.h"
-#include "myOpenGL2D.h"
+#include "openGLmask.h"
+#include "openGLscene.h"
 #include "myAnimatedPaint.h"
 
 
@@ -29,10 +29,9 @@ private:
     double angleTeta = 180;
     double anglePhi = 180;
 
-    myopenGLComponent    myOpenGL;
-    myopenGLComponent2D  myOpenGL2D;
-    myAnimatedPaint      myAnimatedPaint;
-
+    openGLMaskComponent  openGLMask;
+    openGLSceneComponent openGLScene;
+ 
     std::unique_ptr<juce::TextButton> juce__textButton11;
     std::unique_ptr<juce::Slider> juce__slider;
     std::unique_ptr<juce::Label> juce__label;

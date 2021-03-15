@@ -333,18 +333,23 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavefrontObjFile2D)
 };
 
-class myopenGLComponent2D : public juce::OpenGLAppComponent
+class openGLSceneComponent : public juce::OpenGLAppComponent
 {
 public:
-    myopenGLComponent2D()
+    openGLSceneComponent()
     {
         openGLContext.setComponentPaintingEnabled(1);
-        openGLContext.setContinuousRepainting(1);
+        openGLContext.setContinuousRepainting(true);
         OpenGLAppComponent::setSize(800, 600);
-
+        CodaIsConnected = false;
+        angleTest = 0;
+        angleAlpha = 0;
+        anglePhi = 0;
+        angleTeta = 0;
+        nameInScene = "No song";
     }
 
-    ~myopenGLComponent2D() override
+    ~openGLSceneComponent() override
     {
         shutdownOpenGL();
     }
@@ -352,6 +357,18 @@ public:
     void initialise() override
     {
         createShaders();
+    }
+
+    void set_angle(double alpha, double teta, double phi)
+    {
+        angleAlpha = alpha;
+        angleTeta = teta;
+        anglePhi = phi;
+    }
+
+    void set_CodaIsConnected(bool b)
+    {
+        CodaIsConnected = b;
     }
 
     void shutdown() override
@@ -375,7 +392,17 @@ public:
         juce::Matrix3D<float> rotationMatrix;
         juce::Matrix3D<float> rotationMatrix2;
         rotationMatrix = viewMatrix.rotation({ -3.1415f * 0.5,  0 ,  0 });
-        rotationMatrix2 = viewMatrix.rotation({ 0, 2.0f * std::sin((float)OpenGLAppComponent::getFrameCounter() * 0.01f) , 0 });
+ 
+
+        if (!CodaIsConnected)
+        {
+            rotationMatrix2 = viewMatrix.rotation({ -0.0f,  6.0f * std::sin((float)getFrameCounter() * 0.008f),  0.0f });
+        }
+        else
+        {
+            rotationMatrix2 = viewMatrix.rotation({ 0,   (float)((angleTeta + 180) / 57.2957),  0 });
+        }
+
         return (rotationMatrix2 * rotationMatrix * viewMatrix);
     }
 
@@ -413,53 +440,82 @@ public:
 
     }
 
-    void drawCirclePolar(juce::Graphics& g, float dist, float angle, float rad, juce::Colour color)
-    {
-        //Point repère : drawcircle(g, 0.5, 0.85, 40, juce::Colours::white);
-        float x = 0.5 + dist * (std::cos(angle * 2 * 3.1415 / 360));
-        float y = 0.5 - dist * (std::sin(angle * 2 * 3.1415 / 360));
-        //float y = 0.95 - dist * (std::sin(angle * 2 * 3.1415 / 360));
-        drawcircle(g, x, y, rad, color);
-    }
+#define POSX_HEAD 0.5
+#define POSY_HEAD 0.85
 
-    void drawcircle(juce::Graphics& g, float x, float y, float rad, juce::Colour color)
+    void drawCirclePolar(juce::Graphics& g, float dist, float angle, float rad, juce::Colour color, char* c)
     {
-        auto w = getLocalBounds().toFloat().getWidth();
-        auto h = getLocalBounds().toFloat().getHeight();
+
+        float x = dist * (std::cos(angle * 2 * 3.1415 / 360));
+        float y = -1 * dist * (std::sin(angle * 2 * 3.1415 / 360));
+
+        //pour avoir une scene ronde et non elliptique la diagonale est prise comme reference
+        auto diag = 0.5*((float)getLocalBounds().toFloat().getWidth() + (float)getLocalBounds().toFloat().getHeight());
+        auto offsetX = POSX_HEAD  * getLocalBounds().toFloat().getWidth();
+        auto offsetY = POSY_HEAD * getLocalBounds().toFloat().getHeight();
+
+        g.setColour(juce::Colours::dimgrey);
+        g.drawLine(offsetX + (diag * x), offsetY + (diag * y), offsetX, offsetY);
+
         g.setColour(color);
-        g.fillEllipse((w * x) - (rad * 0.5f), (h * y) - (rad * 0.5f), rad, rad);
+        g.fillEllipse(offsetX + (diag * x) - (rad * 0.5), offsetY + (diag * y) - (rad * 0.5), rad, rad);
+        g.setColour(juce::Colours::white);
+        auto boxsize = 50;
+        g.drawText(c, offsetX + (diag * x) - 0.5*boxsize, offsetY + (diag * y) - 0.5*boxsize, boxsize, boxsize, juce::Justification::centred, true);
+
+        juce::String s;
+
+        g.drawText((juce::String)dist, offsetX + 0.5 * (diag * x),
+                                       offsetY + 0.5*  (diag * y),
+                                       boxsize, boxsize, juce::Justification::left, true);
     }
 
     void drawScene(juce::Graphics& g)
     {
-        g.setColour(juce::Colours::darkgrey);
+
         auto w = getLocalBounds().toFloat().getWidth();
         auto h = getLocalBounds().toFloat().getHeight();
-        //g.drawLine(0, 0.5*h, w, 0.5*h);
-        //g.drawLine(0.5*w, 0, 0.5*w, h);
-        g.drawLine(0, 0, w, h);
-        g.drawLine(w, 0, 0, h);
-        float rad;
-        for (int i = 1; i < 5; i++)
-        {
-            rad = 0.3 * i;
-            g.drawEllipse(0.5 * w - (rad * 0.5f * w), 0.5 * h - (rad * 0.5f * h), rad * w, rad * h, 3 - 0.5 * i);
-        }
+        float rad = 1;
+
+        g.drawEllipse(0.8 * w - (rad * 0.5 * w),
+                      0.8 * h - (rad * 0.5 * h),
+                      10,
+                      10,
+                      3);
+
+        g.setColour(juce::Colours::darkcyan);
+        g.drawText(nameInScene, 0.02*w, 0.91*h, 200,50, juce::Justification::left, true);
     }
 
-
     int i = 1;
+
+    void set_nameScene(juce::String s)
+    {
+        nameInScene = s;
+        repaint();
+    }
 
     void paint(juce::Graphics& g) override
     {
         g.fillAll(juce::Colours::transparentBlack);
-
-        g.setColour(getLookAndFeel().findColour(juce::Slider::thumbColourId));
-        drawCirclePolar(g, 0.3, i + 180, 30, juce::Colours::green);
         drawScene(g);
-        i++;
+        g.setColour(getLookAndFeel().findColour(juce::Slider::thumbColourId));
+        drawCirclePolar(g, 0.5, (float) angleTest, 40, juce::Colours::green, "piano");
+        drawCirclePolar(g, 0.5, (float) angleTest+45, 40, juce::Colours::violet, "violon");
+        drawCirclePolar(g, 0.5, (float) angleTest+90, 40, juce::Colours::red, "piano");
+        drawCirclePolar(g, 0.5, (float) angleTest+135, 40, juce::Colours::blue, "violon");
+
+
+
+
+
     }
 
+    void set_fake_angle(double d)
+    {
+        angleTest = d;
+        repaint();
+    }
 
     void resized() override
     {
@@ -716,11 +772,19 @@ private:
         }
     };
 
+    double angleAlpha;
+    double angleTeta;
+    double anglePhi;
+    juce::String  nameInScene;
+    double angleTest;
+
+    bool CodaIsConnected;
+
     juce::String vertexShader;
     juce::String fragmentShader;
     std::unique_ptr<juce::OpenGLShaderProgram> shader;
     std::unique_ptr<Shape> shape;
     std::unique_ptr<Attributes> attributes;
     std::unique_ptr<Uniforms> uniforms;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(myopenGLComponent2D)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(openGLSceneComponent)
 };

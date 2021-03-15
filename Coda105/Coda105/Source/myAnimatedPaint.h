@@ -51,7 +51,7 @@ public:
         for (int i = 1; i < 5; i++)
         {
             rad = 0.3 * i;
-            g.drawEllipse(0.5 * w - (rad * 0.5f * w), 0.5 * h - (rad * 0.5f * h), rad * w, rad * h, 3 - 0.5 * i);
+            g.drawEllipse(0.5 * w - (rad * 0.5 * w), 0.5 * h - (rad * 0.5 * h), rad * w, rad * h, 3 - 0.5 * i);
         }
 
     }
@@ -64,14 +64,14 @@ public:
         drawScene(g);
 
 
-        drawCirclePolar(g, 0.3, getFrameCounter(), 30, juce::Colours:: blue);
-        drawCirclePolar(g, 0.3, getFrameCounter() + 45, 30                              , juce::Colours::purple);
-        drawCirclePolar(g, 0.3, getFrameCounter() + 90, 30                              , juce::Colours::red);
-        drawCirclePolar(g, 0.3, getFrameCounter() + 135, 30                             , juce::Colours::yellow);
-        drawCirclePolar(g, 0.3, getFrameCounter() + 180, 30, juce::Colours::green);
-        drawCirclePolar(g, 0.3, getFrameCounter() + 225, 30                             , juce::Colours::yellowgreen);
-        drawCirclePolar(g, 0.3, getFrameCounter() + 270, 30                             , juce::Colours::pink);
-        drawCirclePolar(g, 0.3, getFrameCounter() + 315, 30                             , juce::Colours::fuchsia);
+        drawCirclePolar(g, 0.3f, (float) getFrameCounter(), 30, juce::Colours:: blue);
+        drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 45, 30                              , juce::Colours::purple);
+        drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 90, 30                              , juce::Colours::red);
+        drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 135, 30                             , juce::Colours::yellow);
+        drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 180, 30, juce::Colours::green);
+        drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 225, 30                             , juce::Colours::yellowgreen);
+        drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 270, 30                             , juce::Colours::pink);
+        drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 315, 30                             , juce::Colours::fuchsia);
         /*
         auto fishLength = 10;
         juce::Path spinePath;
