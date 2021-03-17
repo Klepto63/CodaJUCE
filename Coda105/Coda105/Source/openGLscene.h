@@ -455,19 +455,20 @@ public:
         auto offsetY = POSY_HEAD * getLocalBounds().toFloat().getHeight();
 
         g.setColour(juce::Colours::dimgrey);
-        g.drawLine(offsetX + (diag * x), offsetY + (diag * y), offsetX, offsetY);
+        g.drawLine(offsetX + (diag * x), offsetY + (diag * y), offsetX, offsetY, 0.1);
 
         g.setColour(color);
         g.fillEllipse(offsetX + (diag * x) - (rad * 0.5), offsetY + (diag * y) - (rad * 0.5), rad, rad);
         g.setColour(juce::Colours::white);
         auto boxsize = 50;
         g.drawText(c, offsetX + (diag * x) - 0.5*boxsize, offsetY + (diag * y) - 0.5*boxsize, boxsize, boxsize, juce::Justification::centred, true);
-
+        
+        g.setColour(juce::Colours::darkred);
         juce::String s;
 
-        g.drawText((juce::String)dist, offsetX + 0.5 * (diag * x),
-                                       offsetY + 0.5*  (diag * y),
-                                       boxsize, boxsize, juce::Justification::left, true);
+        g.drawText((juce::String)dist, offsetX +   (diag * x) ,
+                                       offsetY +   (diag * y) + 5,
+                                       boxsize, boxsize, juce::Justification::centred, false);
     }
 
     void drawScene(juce::Graphics& g)
@@ -500,10 +501,10 @@ public:
         g.fillAll(juce::Colours::transparentBlack);
         drawScene(g);
         g.setColour(getLookAndFeel().findColour(juce::Slider::thumbColourId));
-        drawCirclePolar(g, 0.5, (float) angleTest, 40, juce::Colours::green, "piano");
-        drawCirclePolar(g, 0.5, (float) angleTest+45, 40, juce::Colours::violet, "violon");
-        drawCirclePolar(g, 0.5, (float) angleTest+90, 40, juce::Colours::red, "piano");
-        drawCirclePolar(g, 0.5, (float) angleTest+135, 40, juce::Colours::blue, "violon");
+        drawCirclePolar(g, 0.5, (float) angleTest, 40, juce::Colours::darkcyan, "piano");
+        drawCirclePolar(g, 0.5, (float) angleTest+45, 40, juce::Colours::darkcyan, "violon");
+        drawCirclePolar(g, 0.5, (float) angleTest+90, 40, juce::Colours::darkcyan, "piano");
+        drawCirclePolar(g, 0.5, (float) angleTest+135, 40, juce::Colours::darkcyan, "violon");
 
 
 

@@ -68,7 +68,7 @@ public:
         drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 45, 30                              , juce::Colours::purple);
         drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 90, 30                              , juce::Colours::red);
         drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 135, 30                             , juce::Colours::yellow);
-        drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 180, 30, juce::Colours::green);
+        drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 180, 30                             , juce::Colours::green);
         drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 225, 30                             , juce::Colours::yellowgreen);
         drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 270, 30                             , juce::Colours::pink);
         drawCirclePolar(g, 0.3f, (float) getFrameCounter() + 315, 30                             , juce::Colours::fuchsia);
